@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Class Project">
+    <meta name="author" content="Tim Bauer">
+    <title>{% block title %}Welcome to Group 5!{% endblock %}</title>
+
+    {% block stylesheets %}
+        <link rel="stylesheet" href={{ asset('css/bootstrap/bootstrap.css') }} >
+        <link rel="stylesheet" href="http://twitter.github.com/bootstrap/assets/css/bootstrap-responsive.css">
+        <link rel="stylesheet" href={{ asset('css/main.css') }} >
+        <link rel="stylesheet" href="{{ asset('css/font-awesome-4.7.0/css/font-awesome.min.css') }}">
+    {% endblock %}
+
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+</head>
+<div class="container">
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-collapseable-navbar" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="main-collapseable-navbar">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a id="home-navbar-link" href="{{ path('homepage') }}">Home<span class="sr-only">(current)</span></a></li>
+                    <li><a id="units-navbar-link" href="#">Andrew</a></li>
+                    <li><a id="build-army-navbar-link" href="#">Tim</a></li>
+                    <li><a id="view-army-navbar-link" href="#">David</a></li>
+                    <li><a id="view-army-navbar-link" href="#">James</a></li>
+                    <li><a id="view-army-navbar-link" href="#">Jeffery</a></li>
+                    <li><a id="view-army-navbar-link" href="#">William</a></li>
+                    <li><a id="view-army-navbar-link" href="#">May</a></li>
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </nav>
+    {% for flash_message in app.session.flashBag.get('success') %}
+        <div class="alert alert-info text-center">
+            {{ flash_message }}
+        </div>
+    {% endfor %}
+    <div class="page-header">
+        <h1 class="page-header-text">Welcome to Group 5!
+            <br><small>The Best Developers CSc 648 has to Offer...</small>
+        </h1>
+    </div> <!-- end "page-header" -->
+</div><!-- end "container" -->
+<body>
+{% block body %}
+{% endblock %}
+</body>
+{% block javascripts %}
+    <script src={{ asset('js/jquery-3.1.1.min.js') }}></script>
+    <script src= {{ asset('js/bootstrap.min.js') }}></script>
+    <script src={{ asset('js/carousel.js') }}></script>
+    <script>
+        $(document).ready(function() {
+            $('.collapse li a').click(function(e) {
+                var $this = $(this);
+                if (!$this.hasClass('active')) {
+                    $this.parent().siblings().removeClass('active');
+                    $this.parent().addClass('active');
+                }
+            });
+            $(function () {
+                $('[data-toggle="popover"]').popover()
+            })
+        } );
+
+    </script>
+{% endblock %}
+
+</html>
