@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container">
+        <div class="page-header">
+            <h1 class="page-header-text">Tim Bauer
+                <br><small>Chief Technical Officer</small>
+            </h1>
+        </div> <!-- end "page-header" -->
+    </div><!-- end "container" -->
+    <div class="container col-xs-offset-2 col-xs-3" style="padding-top: 20px">
+        <img src="{{ asset('images/tim.jpg')}}" height="419px" width="281px">
+    </div>
+    <div class="container col-xs-4">
+        <h2 class="text-center" style="font-size: 42px">About Me</h2>
+        <p style="font-size: 20px">
+            Lorem ipsum dolor sit amet, eripuit graecis vivendum pro ne, officiis
+            menandri salutatus est ad, eu sed sint wisi euripidis. Mea cu quot facer eligendi,
+            at dolore indoctum pro, nec eripuit phaedrum ad. Eu paulo mucius mel, ea admodum tibique est,
+            nominavi petentium inciderint per no. Qui dolor scribentur disputando no, decore legendos id eos.
+            Ex integre maluisset disputando pro, unum delicatissimi mediocritatem eu nam, vix cu cibo viris.
+            Ex vim nisl mentitum, at mea vide eloquentiam.
+        </p>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $(document).ready(function() {
+            var targetLink= {{ developerLink|json_encode|raw }};
+            $(targetLink).parent().addClass('active');
+            $(targetLink).parent().siblings().removeClass('active');
+        } );
+    </script>
+{% endblock %}
