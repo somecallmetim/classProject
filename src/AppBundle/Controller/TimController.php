@@ -15,7 +15,12 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
 class TimController extends Controller
 {
+    /**
+     * @Route("/aboutTim", name="about_tim")
+     */
     public function aboutTimAction(){
-        return $this->render('aboutTim.html.twig');
+        return $this->render('aboutTim.html.twig', [
+            'developerLink' => '#tim-navbar-link'
+        ]);
     }
 }
