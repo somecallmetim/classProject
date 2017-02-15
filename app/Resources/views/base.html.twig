@@ -35,13 +35,13 @@
             <div class="collapse navbar-collapse" id="main-collapseable-navbar">
                 <ul class="nav navbar-nav">
                     <li class="active"><a id="home-navbar-link" href="{{ path('homepage') }}">Home<span class="sr-only">(current)</span></a></li>
-                    <li><a id="units-navbar-link" href="#">Andrew</a></li>
-                    <li><a id="build-army-navbar-link" href="#">Tim</a></li>
-                    <li><a id="view-army-navbar-link" href="#">David</a></li>
-                    <li><a id="view-army-navbar-link" href="#">James</a></li>
-                    <li><a id="view-army-navbar-link" href="#">Jeffery</a></li>
-                    <li><a id="view-army-navbar-link" href="#">William</a></li>
-                    <li><a id="view-army-navbar-link" href="#">May</a></li>
+                    <li><a id="andrew-navbar-link" href="#">Andrew</a></li>
+                    <li><a id="tim-navbar-link" href="{{ path('about_tim') }}">Tim</a></li>
+                    <li><a id="david-navbar-link" href="#">David</a></li>
+                    <li><a id="james-navbar-link" href="#">James</a></li>
+                    <li><a id="jeffrey-army-navbar-link" href="#">Jeffery</a></li>
+                    <li><a id="cj-navbar-link" href="#">CJ</a></li>
+                    <li><a id="amy-navbar-link" href="#">May</a></li>
                 </ul>
             </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
@@ -51,14 +51,17 @@
             {{ flash_message }}
         </div>
     {% endfor %}
-    <div class="page-header">
-        <h1 class="page-header-text">Welcome to Group 5!
-            <br><small>The Best Developers CSc 648 has to Offer...</small>
-        </h1>
-    </div> <!-- end "page-header" -->
+
 </div><!-- end "container" -->
 <body>
 {% block body %}
+    <div class="container">
+        <div class="page-header">
+            <h1 class="page-header-text">Welcome to Group 5!
+                <br><small>The Best Developers CSc 648 has to Offer...</small>
+            </h1>
+        </div> <!-- end "page-header" -->
+    </div>
 {% endblock %}
 </body>
 {% block javascripts %}
