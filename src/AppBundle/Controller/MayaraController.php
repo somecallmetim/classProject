@@ -18,7 +18,7 @@ class MayaraController extends Controller {
      */
     public function aboutMayaraAction() {
         return $this->render('aboutMayara.html.twig', [
-            'developerLink' => '#amy-navbar-link'
+            'developerLink' => '#may-navbar-link'
         ]);
 
     }
