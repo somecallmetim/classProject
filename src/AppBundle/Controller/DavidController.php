@@ -21,7 +21,7 @@ class DavidController extends Controller
     public function aboutDavidAction()
     {
         return $this->render('aboutDavid.html.twig', [
-            'developerLink' => 'david-navbar-link'
+            'developerLink' => '#david-navbar-link'
         ]);
     }
 }
