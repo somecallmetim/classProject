@@ -62,6 +62,32 @@
             </h1>
         </div> <!-- end "page-header" -->
     </div>
+
+    <div class="container main-page-background">
+        <div class="container col-xs-4">
+            <img class="sfsu_photo" src="{{ asset('images/sfsu-seal.jpg') }}">
+        </div>
+        <div id="linguetta_next" class="container main-page-btn-container">
+            <div class="container col-xs-8 btn-container" data-toggle="popover"
+                 data-trigger="focus"  data-placement="top" title="Feature not yet enabled!"
+                 data-content="Please check back soon!!! We're always adding new and
+                           amazing content">
+                <button type="button" class="btn btn-default btn-xlarge">bold</button>
+            </div>
+            <div class="container col-xs-8 btn-container" data-toggle="popover"
+                 data-trigger="focus"  data-placement="top" title="Feature not yet enabled!"
+                 data-content="Please check back soon!!! We're always adding new and
+                           amazing content">
+                <button type="button" class="btn btn-default btn-xlarge">daring</button>
+            </div>
+            <div class="container col-xs-8 btn-container" data-toggle="popover"
+                 data-trigger="focus"  data-placement="top" title="Feature not yet enabled!"
+                 data-content="Please check back soon!!! We're always adding new and
+                           amazing content">
+                <button type="button" class="btn btn-default btn-xlarge">understated</button>
+            </div>
+        </div>
+    </div>
 {% endblock %}
 </body>
 {% block javascripts %}
@@ -77,9 +103,25 @@
                     $this.parent().addClass('active');
                 }
             });
+
             $(function () {
                 $('[data-toggle="popover"]').popover()
-            })
+            });
+
+            // special thanks to http://jsfiddle.net/5Pbwf/ from...
+            // http://stackoverflow.com/questions/12295869/jquery-animation-cascade
+
+            $("#linguetta_next div").css({
+                right: -800,
+                position: "relative"
+            }).each(function(i) {
+                var el = $(this);
+                setTimeout(function() {
+                    el.animate({
+                        right: 0
+                    }, 1000);
+                }, i * 250);
+            });
         } );
 
     </script>
