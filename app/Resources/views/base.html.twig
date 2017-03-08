@@ -34,14 +34,30 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="main-collapseable-navbar">
                 <ul class="nav navbar-nav">
-                    <li class="active"><a id="home-navbar-link" href="{{ path('homepage') }}">Home<span class="sr-only">(current)</span></a></li>
-                    <li><a id="andrew-navbar-link" href="{{ path('about_andrew') }}">Andrew</a></li>
-                    <li><a id="tim-navbar-link" href="{{ path('about_tim') }}">Tim</a></li>
-                    <li><a id="james-navbar-link" href="{{ path('about_james') }}">James</a></li>
-                    <li><a id="david-navbar-link" href="{{ path('about_david') }}">David</a></li>
-                    <li><a id="jeffrey-navbar-link" href="{{ path('about_jeffrey') }}">Jeffery</a></li>
-                    <li><a id="may-navbar-link" href="{{ path('about_mayara') }}">May</a></li>
-                    <li><a id="cj-navbar-link" href="{{ path('about_chengjiu') }}">CJ</a></li>
+                    <li class="active">
+                        <a id="home-navbar-link" href="{{ path('homepage') }}">
+                            Home
+                            <span class="sr-only">(current)</span>
+                        </a>
+                    </li>
+                    {% if is_granted('ROLE_SUPER_ADMIN') %}
+                        <li><a id="manage-users-navbar-link" href="{{ path('under_construction') }}">Manage Users</a></li>
+                    {% endif %}
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
+                    {% if is_granted('ROLE_USER')%}
+                        <form method="link" action="{{ path('security_logout') }}">
+                            <button type="submit" class="btn btn-default navbar-btn">Sign out</button>
+                        </form>
+                    {% else %}
+                        <li><a href="{{ path('user_register') }}">Register  </a></li>
+                        <li>
+                            <form method="link" action="{{ path('security_login') }}">
+                                <button type="submit" class="btn btn-default navbar-btn">Sign in</button>
+                            </form>
+                        </li>
+                    {% endif %}
                 </ul>
             </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
