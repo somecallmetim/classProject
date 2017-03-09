@@ -24,7 +24,8 @@ class ManageUsersController extends Controller
 
 //        dump($users);die;
         return $this->render("user/listUsers.html.twig", [
-            'users' => $users
+            'users' => $users,
+            'linkId' => '#manage-users-navbar-link'
         ]);
     }
 

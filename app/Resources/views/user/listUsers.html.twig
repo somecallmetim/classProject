@@ -36,3 +36,14 @@
     </div>
 {% endblock %}
 
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $(document).ready(function() {
+            var targetLink= {{ linkId|json_encode|raw }};
+            $(targetLink).parent().addClass('active');
+            $(targetLink).parent().siblings().removeClass('active');
+        } );
+    </script>
+{% endblock %}
+
