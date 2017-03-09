@@ -40,7 +40,7 @@
                             <span class="sr-only">(current)</span>
                         </a>
                     </li>
-                    {% if is_granted('ROLE_SUPER_ADMIN') %}
+                    {% if is_granted('ROLE_SUPER_ADMIN')  or is_granted('ROLE_ADMIN') %}
                         <li><a id="manage-users-navbar-link" href="{{ path('list_users') }}">Manage Users</a></li>
                     {% endif %}
                 </ul>

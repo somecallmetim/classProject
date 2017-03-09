@@ -8,12 +8,9 @@
 
 namespace AppBundle\Controller;
 
-
-use AppBundle\Entity\User;
-use AppBundle\Form\EditUserForm;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Component\HttpFoundation\Request;
+
 
 class ManageUsersController extends Controller
 {
@@ -25,6 +22,7 @@ class ManageUsersController extends Controller
         $em = $this->getDoctrine()->getManager();
         $users = $em->getRepository('AppBundle:User')->findAll();
 
+//        dump($users);die;
         return $this->render("user/listUsers.html.twig", [
             'users' => $users
         ]);
@@ -39,6 +37,7 @@ class ManageUsersController extends Controller
 
         $user->addOneRole('ROLE_ADMIN');
 
+//        dump($user);die;
         $em->persist($user);
         $em->flush();
 
