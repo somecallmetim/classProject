@@ -41,7 +41,7 @@
                         </a>
                     </li>
                     {% if is_granted('ROLE_SUPER_ADMIN') %}
-                        <li><a id="manage-users-navbar-link" href="{{ path('under_construction') }}">Manage Users</a></li>
+                        <li><a id="manage-users-navbar-link" href="{{ path('list_users') }}">Manage Users</a></li>
                     {% endif %}
                 </ul>
 

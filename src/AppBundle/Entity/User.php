@@ -49,7 +49,13 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="json_array")
      */
-    private $roles = [];
+    private $roles = ['ROLE_USER'];
+
+
+    public function getId()
+    {
+        return $this->id;
+    }
 
 
     public function getUsername()
@@ -64,13 +70,34 @@ class User implements UserInterface
             //this adds ROLE_USER to the array, it does NOT overwrite the array
             $roles[] = 'ROLE_USER';
         }
-
         return $roles;
     }
 
     public function setRoles($roles)
     {
+        if(!in_array('ROLE_USER', $roles)){
+            //this adds ROLE_USER to the array, it does NOT overwrite the array
+            $roles[] = 'ROLE_USER';
+        }
         $this->roles = $roles;
+    }
+
+    public function addOneRole($role)
+    {
+        if(!in_array('ROLE_USER', $this->roles)){
+            //this adds ROLE_USER to the array, it does NOT overwrite the array
+            $roles[] = 'ROLE_USER';
+        }
+        $this->roles[] = $role;
+    }
+
+    public function removeOneRole($role)
+    {
+        unset($this->roles[array_search($role, $this->roles)]);
+        if(!in_array('ROLE_USER', $this->roles)){
+            //this adds ROLE_USER to the array, it does NOT overwrite the array
+            $roles[] = 'ROLE_USER';
+        }
     }
 
     public function getPassword()
