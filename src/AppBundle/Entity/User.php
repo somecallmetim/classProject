@@ -18,6 +18,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @ORM\Entity
  * @ORM\Table(name="UsersTable")
  * @UniqueEntity(fields={"email"}, message="It looks like your already have an account!")
+ * @UniqueEntity(fields={"username"}, message="Username is already taken")
  */
 class User implements UserInterface
 {
@@ -28,6 +29,20 @@ class User implements UserInterface
      * @ORM\Column(type="integer")
      */
     private $id;
+
+    /**
+     * @Assert\NotBlank()
+     * @ORM\Column(type="string", unique=true)
+     */
+    private $username;
+
+    /**
+     * @param mixed $username
+     */
+    public function setUsername($username)
+    {
+        $this->username = $username;
+    }
 
     /**
      * @Assert\NotBlank()
@@ -60,7 +75,7 @@ class User implements UserInterface
 
     public function getUsername()
     {
-        return $this->email;
+        return $this->username;
     }
 
     public function getRoles()

@@ -12,7 +12,12 @@ security:
 
     # http://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
     providers:
-        our_users:
+        chain_provider:
+            chain:
+                providers: [ username_users, email_users ]
+        username_users:
+            entity: { class: AppBundle\Entity\User, property: username }
+        email_users:
             entity: { class: AppBundle\Entity\User, property: email }
 
     firewalls:
