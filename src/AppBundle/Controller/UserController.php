@@ -52,7 +52,8 @@ class UserController extends Controller
         }
 
         return $this->render('user/register.html.twig', [
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'linkId' => false
         ]);
     }
 }

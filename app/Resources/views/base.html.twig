@@ -40,6 +40,12 @@
                             <span class="sr-only">(current)</span>
                         </a>
                     </li>
+                    <li>
+                        <a id="itempost" href="{{ path('itempost_index') }}">
+                            Items for Sale
+                            <span class="sr-only">(current)</span>
+                        </a>
+                    </li>
                     {% if is_granted('ROLE_SUPER_ADMIN')  or is_granted('ROLE_ADMIN') %}
                         <li><a id="manage-users-navbar-link" href="{{ path('list_users') }}">Manage Users</a></li>
                     {% endif %}
@@ -112,13 +118,12 @@
     <script src={{ asset('js/carousel.js') }}></script>
     <script>
         $(document).ready(function() {
-            $('.collapse li a').click(function(e) {
-                var $this = $(this);
-                if (!$this.hasClass('active')) {
-                    $this.parent().siblings().removeClass('active');
-                    $this.parent().addClass('active');
-                }
-            });
+            var linkId = {{ linkId|json_encode|raw }};
+            if(linkId != false){
+                var targetLink= linkId;
+                $(targetLink).parent().addClass('active');
+                $(targetLink).parent().siblings().removeClass('active');
+            }
 
             $(function () {
                 $('[data-toggle="popover"]').popover()

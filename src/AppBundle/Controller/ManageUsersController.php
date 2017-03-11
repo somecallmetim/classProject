@@ -22,7 +22,7 @@ class ManageUsersController extends Controller
         $em = $this->getDoctrine()->getManager();
         $users = $em->getRepository('AppBundle:User')->findAll();
 
-//        dump($users);die;
+
         return $this->render("user/listUsers.html.twig", [
             'users' => $users,
             'linkId' => '#manage-users-navbar-link'
@@ -38,7 +38,6 @@ class ManageUsersController extends Controller
 
         $user->addOneRole('ROLE_ADMIN');
 
-//        dump($user);die;
         $em->persist($user);
         $em->flush();
 

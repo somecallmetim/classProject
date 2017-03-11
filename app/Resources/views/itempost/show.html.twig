@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container">
+        <h1>{{ itemPost.name }}</h1>
+
+        <table class="table table-responsive">
+            <tbody>
+            <tr>
+                <th>Price</th>
+                <td>${{ itemPost.price|number_format(2) }}</td>
+            </tr>
+            <tr>
+                <th>Category</th>
+                <td>{{ itemPost.category }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ itemPost.description }}</td>
+            </tr>
+            <tr>
+                <th>Postdate</th>
+                <td>{% if itemPost.postDate %}{{ itemPost.postDate|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Photo</th>
+                <td>{{ itemPost.photo }}</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <a class="btn btn-primary" href="{{ path('itempost_index') }}">Done</a>
+
+        <a class="form-link" href="{{ path('itempost_edit', { 'id': itemPost.id }) }}">Edit</a>
+
+
+    </div>
+{% endblock %}

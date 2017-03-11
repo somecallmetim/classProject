@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <div class="container">
+        <table class="table table-responsive">
+            <thead>
+            <tr>
+                <th></th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Category</th>
+
+            </tr>
+            </thead>
+            <tbody>
+            {% for itemPost in itemPosts %}
+                <tr>
+                    <td><a href="{{ path('itempost_easyDelete', {'id': itemPost.id}) }}"><span class="fa fa-close" style="color: red"></span></a></td>
+                    <td><a href="{{ path('itempost_show', { 'id': itemPost.id }) }}">{{ itemPost.name }}</a></td>
+                    <td>${{ itemPost.price|number_format(2) }}</td>
+                    <td>{{ itemPost.category }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        <a class="btn btn-primary" href="{{ path("itempost_new") }}" role="button">Sell New Item</a>
+
+    </div>
+{% endblock %}
+

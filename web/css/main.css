@@ -116,3 +116,26 @@ h1 small {
 h1, h2, h3, h4, h5, h6, p {
     color: rgb(21, 20, 91);
 }
+
+.btn-primary {
+    color: rgb(213, 166, 13);
+    background-color: rgb(21, 20, 91);;
+}
+
+.btn-primary:hover {
+    color: rgb(21, 20, 91);
+    background-color: rgb(213, 166, 13);
+}
+
+.btn-primary:focus:active {
+    color: rgb(21, 20, 91);
+    background-color: rgb(213, 166, 13);
+}
+
+.form-link {
+    color: rgb(21, 20, 91);
+}
+
+.form-link:hover {
+    color: rgb(213, 166, 13);
+}
