@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\ItemPost;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
@@ -34,7 +35,7 @@ class ItemPostController extends Controller
     }
 
     /**
-     * Creates a new itemPost entity.
+     * @Security("is_granted('ROLE_USER')")
      *
      * @Route("/new", name="itempost_new")
      * @Method({"GET", "POST"})
@@ -49,6 +50,7 @@ class ItemPostController extends Controller
             $em = $this->getDoctrine()->getManager();
             $itemPost = $form->getData();
             $itemPost->setPostDate(new \DateTime());
+            $itemPost->setUser($this->getUser());
             $em->persist($itemPost);
             $em->flush();
 
