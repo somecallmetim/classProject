@@ -87,13 +87,15 @@ class ItemPostController extends Controller
     public function editAction(Request $request, ItemPost $itemPost)
     {
 
+        $this->denyAccessUnlessGranted('edit', $itemPost);
+
         $editForm = $this->createForm('AppBundle\Form\ItemPostType', $itemPost);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('itempost_edit', array('id' => $itemPost->getId()));
+            return $this->redirectToRoute('itempost_index', array('id' => $itemPost->getId()));
         }
 
         return $this->render('itempost/edit.html.twig', array(
@@ -108,6 +110,9 @@ class ItemPostController extends Controller
      * @Route("/{id}/i", name="itempost_easyDelete")
      */
     public function easyDeleteAction(ItemPost $itemPost){
+
+        $this->denyAccessUnlessGranted('delete', $itemPost);
+
         $em = $this->getDoctrine()->getManager();
         $em->remove($itemPost);
         $em->flush();

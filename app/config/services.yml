@@ -16,3 +16,10 @@ services:
           autowire: true
           tags:
               - { name: doctrine.event_subscriber }
+
+      app.post_voter:
+          class: AppBundle\Security\PostVoter
+          arguments: ['@security.access.decision_manager']
+          public: false
+          tags:
+              - { name: security.voter }
