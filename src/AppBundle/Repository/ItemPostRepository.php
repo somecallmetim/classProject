@@ -2,6 +2,8 @@
 
 namespace AppBundle\Repository;
 
+use AppBundle\Entity\User;
+
 /**
  * ItemPostRepository
  *
@@ -10,4 +12,11 @@ namespace AppBundle\Repository;
  */
 class ItemPostRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function findAllItemsByUser(User $user){
+        return $this->createQueryBuilder('item_post')
+            ->andWhere('item_post.user = :user')
+            ->setParameter('user', $user)
+            ->getQuery()
+            ->execute();
+    }
 }

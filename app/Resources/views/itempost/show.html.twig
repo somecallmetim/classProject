@@ -35,7 +35,9 @@
 
         <a class="btn btn-primary" href="{{ path('itempost_index') }}">Done</a>
 
-        <a class="form-link" href="{{ path('itempost_edit', { 'id': itemPost.id }) }}">Edit</a>
+        {% if itemPost.user  == app.user  %}
+            <a class="form-link" href="{{ path('itempost_edit', { 'id': itemPost.id }) }}">Edit</a>
+        {% endif %}
 
 
     </div>

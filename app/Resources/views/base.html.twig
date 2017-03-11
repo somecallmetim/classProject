@@ -46,6 +46,9 @@
                             <span class="sr-only">(current)</span>
                         </a>
                     </li>
+                    {% if is_granted('ROLE_USER')%}
+                    <li><a id="my-market-place-link" href="{{ path('myMarketplace') }}">My Marketplace</a></li>
+                    {% endif %}
                     {% if is_granted('ROLE_SUPER_ADMIN')  or is_granted('ROLE_ADMIN') %}
                         <li><a id="manage-users-navbar-link" href="{{ path('list_users') }}">Manage Users</a></li>
                     {% endif %}

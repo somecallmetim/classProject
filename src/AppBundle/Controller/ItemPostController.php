@@ -107,7 +107,7 @@ class ItemPostController extends Controller
 
 
     /**
-     * @Route("/{id}/i", name="itempost_easyDelete")
+     * @Route("/{id}", name="itempost_delete")
      */
     public function easyDeleteAction(ItemPost $itemPost){
 

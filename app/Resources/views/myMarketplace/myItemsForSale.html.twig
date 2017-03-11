@@ -16,7 +16,7 @@
             <tbody>
             {% for itemPost in itemPosts %}
                 <tr>
-                    <td></td>
+                    <td><a href="{{ path('itempost_delete', {'id': itemPost.id}) }}"><span class="fa fa-close" style="color: red"></span></a></td>
                     <td><a href="{{ path('itempost_show', { 'id': itemPost.id }) }}">{{ itemPost.name }}</a></td>
                     <td>${{ itemPost.price|number_format(2) }}</td>
                     <td>{{ itemPost.category }}</td>
@@ -29,4 +29,3 @@
 
     </div>
 {% endblock %}
-
