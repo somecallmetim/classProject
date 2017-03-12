@@ -248,4 +248,3 @@ class ItemPost
         return $this->photo;
     }
 }
-

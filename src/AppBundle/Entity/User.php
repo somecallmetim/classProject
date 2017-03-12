@@ -10,17 +10,18 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use FOS\MessageBundle\Model\ParticipantInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\UserRepository")
  * @ORM\Table(name="UsersTable")
  * @UniqueEntity(fields={"email"}, message="It looks like your already have an account!")
  * @UniqueEntity(fields={"username"}, message="Username is already taken")
  */
-class User implements UserInterface
+class User implements UserInterface, ParticipantInterface
 {
 
     /**
