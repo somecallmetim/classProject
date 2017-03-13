@@ -38,14 +38,6 @@ class User implements UserInterface, ParticipantInterface
     private $username;
 
     /**
-     * @param mixed $username
-     */
-    public function setUsername($username)
-    {
-        $this->username = $username;
-    }
-
-    /**
      * @Assert\NotBlank()
      * @Assert\Email()
      * @ORM\Column(type="string", unique=true)
@@ -67,12 +59,24 @@ class User implements UserInterface, ParticipantInterface
      */
     private $roles = ['ROLE_USER'];
 
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\ItemPost", mappedBy="user", orphanRemoval=true)
+     */
+    private $itemposts;
+
 
     public function getId()
     {
         return $this->id;
     }
 
+    /**
+     * @param mixed $username
+     */
+    public function setUsername($username)
+    {
+        $this->username = $username;
+    }
 
     public function getUsername()
     {

@@ -25,7 +25,7 @@ class ItemPost
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="itemposts")
      */
     private $user;
 
