@@ -103,9 +103,9 @@ class ItemPostController extends Controller
 
 
     /**
-     * @Route("/{id}", name="itempost_delete")
+     * @Route("/{id}/delete", name="itempost_delete")
      */
-    public function easyDeleteAction(ItemPost $itemPost){
+    public function deleteAction(ItemPost $itemPost){
 
         $this->denyAccessUnlessGranted('delete', $itemPost);
 
