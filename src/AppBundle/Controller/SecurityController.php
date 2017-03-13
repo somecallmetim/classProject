@@ -33,8 +33,7 @@ class SecurityController extends Controller
 
         return $this->render('security/login.html.twig', array(
             'form' => $form->createView(),
-            'error'         => $error,
-            'linkId' => false
+            'error'         => $error
         ));
     }
 

@@ -1,0 +1,16 @@
+{% extends '@FOSMessage/layout.html.twig' %}
+
+{% block body %}
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $(document).ready(function() {
+            var linkId = "#sent-items-link";
+            $(linkId).parent().addClass('active');
+            $(linkId).parent().siblings().removeClass('active');
+        } );
+    </script>
+{% endblock %}

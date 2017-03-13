@@ -17,61 +17,64 @@
 
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
 </head>
+
 <div class="container">
-    <nav class="navbar navbar-inverse">
-        <div class="container-fluid">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-collapseable-navbar" aria-expanded="false">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
+    {% block navbar %}
+        <nav class="navbar navbar-inverse">
+            <div class="container-fluid">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-collapseable-navbar" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
 
-            </div>
+                </div>
 
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="main-collapseable-navbar">
-                <ul class="nav navbar-nav">
-                    <li class="active">
-                        <a id="home-navbar-link" href="{{ path('homepage') }}">
-                            Home
-                            <span class="sr-only">(current)</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a id="itempost" href="{{ path('itempost_index') }}">
-                            Items for Sale
-                            <span class="sr-only">(current)</span>
-                        </a>
-                    </li>
-                    {% if is_granted('ROLE_USER')%}
-                        <li><a id="my-market-place-link" href="{{ path('myMarketplace') }}">My Marketplace</a></li>
-                        <li><a id="mailbox-link" href="{{ path('fos_message_inbox') }}">Mailbox</a></li>
-                    {% endif %}
-                    {% if is_granted('ROLE_SUPER_ADMIN')  or is_granted('ROLE_ADMIN') %}
-                        <li><a id="manage-users-navbar-link" href="{{ path('list_users') }}">Manage Users</a></li>
-                    {% endif %}
-                </ul>
-
-                <ul class="nav navbar-nav navbar-right">
-                    {% if is_granted('ROLE_USER')%}
-                        <form method="link" action="{{ path('security_logout') }}">
-                            <button type="submit" class="btn btn-default navbar-btn">Sign out</button>
-                        </form>
-                    {% else %}
-                        <li><a href="{{ path('user_register') }}">Register  </a></li>
-                        <li>
-                            <form method="link" action="{{ path('security_login') }}">
-                                <button type="submit" class="btn btn-default navbar-btn">Sign in</button>
-                            </form>
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="main-collapseable-navbar">
+                    <ul class="nav navbar-nav">
+                        <li class="active">
+                            <a id="home-navbar-link" class="js-toggle-active-main-navbar" href="{{ path('homepage') }}">
+                                Home
+                                <span class="sr-only">(current)</span>
+                            </a>
                         </li>
-                    {% endif %}
-                </ul>
-            </div><!-- /.navbar-collapse -->
-        </div><!-- /.container-fluid -->
-    </nav>
+                        <li>
+                            <a id="itempost" class="js-toggle-active-main-navbar" href="{{ path('itempost_index') }}">
+                                Items for Sale
+                                <span class="sr-only">(current)</span>
+                            </a>
+                        </li>
+                        {% if is_granted('ROLE_USER')%}
+                            <li><a id="my-market-place-link" class="js-toggle-active-main-navbar" href="{{ path('myMarketplace') }}">My Marketplace</a></li>
+                            <li><a id="mailbox-link" class="js-toggle-active-main-navbar" href="{{ path('fos_message_inbox') }}">Mailbox</a></li>
+                        {% endif %}
+                        {% if is_granted('ROLE_SUPER_ADMIN')  or is_granted('ROLE_ADMIN') %}
+                            <li><a id="manage-users-navbar-link" class="js-toggle-active-main-navbar" href="{{ path('list_users') }}">Manage Users</a></li>
+                        {% endif %}
+                    </ul>
+
+                    <ul class="nav navbar-nav navbar-right">
+                        {% if is_granted('ROLE_USER')%}
+                            <form method="link" action="{{ path('security_logout') }}">
+                                <button type="submit" class="btn btn-default navbar-btn">Sign out</button>
+                            </form>
+                        {% else %}
+                            <li><a href="{{ path('user_register') }}">Register  </a></li>
+                            <li>
+                                <form method="link" action="{{ path('security_login') }}">
+                                    <button type="submit" class="btn btn-default navbar-btn">Sign in</button>
+                                </form>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </div><!-- /.navbar-collapse -->
+            </div><!-- /.container-fluid -->
+        </nav>
+    {% endblock %}
     {% for flash_message in app.session.flashBag.get('success') %}
         <div class="alert alert-info text-center">
             {{ flash_message }}
@@ -122,12 +125,18 @@
     <script src={{ asset('js/carousel.js') }}></script>
     <script>
         $(document).ready(function() {
-            var linkId = {{ linkId|json_encode|raw }};
-            if(linkId != false){
-                var targetLink= linkId;
-                $(targetLink).parent().addClass('active');
-                $(targetLink).parent().siblings().removeClass('active');
-            }
+            {#var linkId = {{ linkId|json_encode|raw }};#}
+//            if(linkId != false){
+//                var targetLink= linkId;
+//                $(targetLink).parent().addClass('active');
+//                $(targetLink).parent().siblings().removeClass('active');
+//            }
+
+//            $(".js-toggle-active-main-navbar").click(function () {
+//                var id = "#" + $(this).attr('id');
+//                $(id).parent().addClass('active');
+//                $(id).parent().siblings().removeClass('active');
+//            });
 
             $(function () {
                 $('[data-toggle="popover"]').popover()

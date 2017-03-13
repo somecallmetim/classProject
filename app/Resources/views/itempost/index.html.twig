@@ -30,3 +30,14 @@
     </div>
 {% endblock %}
 
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $(document).ready(function() {
+            var linkId = "#itempost";
+            $(linkId).parent().addClass('active');
+            $(linkId).parent().siblings().removeClass('active');
+        } );
+    </script>
+{% endblock %}
+

@@ -9,6 +9,25 @@
     background-color: #1d1c7d;
 }
 
+.navbar-default{
+    background-color: rgb(213, 166, 13);
+}
+
+.navbar-default .navbar-nav > li > a{
+    color: rgb(21, 20, 91);
+}
+.navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
+    background-color: #BA8C2A;
+    color: #FFF;
+}
+
+.navbar-sub .navbar-nav{
+    margin-left: 50px;
+}
+
+.navbar-sub .navbar-nav > li > a {padding-top:5px !important; padding-bottom:5px !important;}
+.navbar {min-height:32px !important}
+
 .main-text
 {
     position: absolute;

@@ -29,8 +29,7 @@ class ItemPostController extends Controller
 
 
         return $this->render('itempost/index.html.twig', array(
-            'itemPosts' => $itemPosts,
-            'linkId' => '#itempost'
+            'itemPosts' => $itemPosts
         ));
     }
 
@@ -58,8 +57,7 @@ class ItemPostController extends Controller
         }
 
         return $this->render('itempost/new.html.twig', array(
-            'form' => $form->createView(),
-            'linkId' => '#itempost'
+            'form' => $form->createView()
         ));
     }
 
@@ -73,8 +71,7 @@ class ItemPostController extends Controller
     {
 
         return $this->render('itempost/show.html.twig', array(
-            'itemPost' => $itemPost,
-            'linkId' => '#itempost'
+            'itemPost' => $itemPost
         ));
     }
 
@@ -100,8 +97,7 @@ class ItemPostController extends Controller
 
         return $this->render('itempost/edit.html.twig', array(
             'itemPost' => $itemPost,
-            'edit_form' => $editForm->createView(),
-            'linkId' => '#itempost'
+            'edit_form' => $editForm->createView()
         ));
     }
 

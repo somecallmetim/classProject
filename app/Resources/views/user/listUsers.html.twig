@@ -36,3 +36,14 @@
     </div>
 {% endblock %}
 
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $(document).ready(function() {
+            var linkId = "#manage-users-navbar-link";
+            $(linkId).parent().addClass('active');
+            $(linkId).parent().siblings().removeClass('active');
+        } );
+    </script>
+{% endblock %}
+

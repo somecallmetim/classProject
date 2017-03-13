@@ -23,8 +23,7 @@ class MyMarketplaceController extends Controller
         $itemPosts = $em->getRepository('AppBundle:ItemPost')->findAllItemsByUser($this->getUser());
 
         return $this->render('myMarketplace/myItemsForSale.html.twig', [
-            'itemPosts' => $itemPosts,
-            'linkId' => '#my-market-place-link'
+            'itemPosts' => $itemPosts
         ]);
     }
 }
