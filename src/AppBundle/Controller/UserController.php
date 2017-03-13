@@ -41,7 +41,7 @@ class UserController extends Controller
             $em->persist($user);
             $em->flush();
 
-            $this->addFlash('success', 'Welcome '.$user->getEmail());
+            $this->addFlash('success', 'Welcome '.$user->getUsername());
             return $this->get('security.authentication.guard_handler')
                 ->authenticateUserAndHandleSuccess(
                     $user,
