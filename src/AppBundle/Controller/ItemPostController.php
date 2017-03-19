@@ -6,7 +6,8 @@ use AppBundle\Entity\ItemPost;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Itempost controller.
@@ -26,7 +27,6 @@ class ItemPostController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $itemPosts = $em->getRepository('AppBundle:ItemPost')->findAll();
-
 
         return $this->render('itempost/index.html.twig', array(
             'itemPosts' => $itemPosts

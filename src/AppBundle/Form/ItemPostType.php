@@ -22,7 +22,7 @@ class ItemPostType extends AbstractType
             ->add('category', ChoiceType::class, [
                 'placeholder' => 'Please select a category',
                 'choices' => [
-                    'TV\'s, Tablets, Entertainment' => 'TV\'s, Tablets, Entertainment',
+                    "TV's, Tablets, Entertainment" => "TV's, Tablets, Entertainment",
                     'Furnishings' => 'Furnishings',
                     'Laptops' => 'Laptops',
                     'Text Books' => 'Text Books',

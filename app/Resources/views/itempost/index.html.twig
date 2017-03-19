@@ -1,9 +1,63 @@
 {% extends 'base.html.twig' %}
 
+{% block navbar %}
+    {{ parent() }}
+    <nav class="navbar navbar-default navbar-sub">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-collapseable-navbar" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="main-collapseable-navbar">
+                <ul class="nav navbar-nav">
+                    {#<li class="active">#}
+                        {#<a id="inbox-link" class="js-toggle-active" href="{{ path('fos_message_inbox') }}">#}
+                            {#inbox#}
+                            {#<span class="sr-only">(current)</span>#}
+                        {#</a>#}
+                    {#</li>#}
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                           aria-haspopup="true" aria-expanded="false">Choose a Category <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">TV's, Tablets, Entertainment</a></li>
+                            <li><a href="#">Furnishings</a></li>
+                            <li><a href="#">Laptops</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="#">Text Books</a></li>
+                            <li><a href="#">School Supplies</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="#">Tutoring Services</a></li>
+                            <li><a href="#">Roommate Wanted</a></li>
+                            <li><a href="#">Misc</a></li>
+                            <li><a href="#">All Items</a> </li>
+                        </ul>
+                    </li>
+
+                </ul>
+
+
+                <ul class="nav navbar-nav navbar-right">
+                    <input type="search" placeholder="Search for Item"/>
+                </ul>
+
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </nav>
+{% endblock %}
+
 {% block body %}
 
     <div class="container">
-        <table class="table table-responsive">
+        <table id="js-item-post-table" class="table table-responsive">
             <thead>
             <tr>
                 <th></th>
@@ -15,7 +69,7 @@
             </thead>
             <tbody>
             {% for itemPost in itemPosts %}
-                <tr>
+                <tr class="itemPost" data-category="{{ itemPost.category }}">
                     <td></td>
                     <td><a href="{{ path('itempost_show', { 'id': itemPost.id }) }}">{{ itemPost.name }}</a></td>
                     <td>${{ itemPost.price|number_format(2) }}</td>
@@ -35,8 +89,31 @@
     <script>
         $(document).ready(function() {
             var linkId = "#itempost";
+            var $table = $('#js-item-post-table');
+
             $(linkId).parent().addClass('active');
             $(linkId).parent().siblings().removeClass('active');
+
+            $(".dropdown-menu li a").click(function(e){
+                $(this).parents(".dropdown").find('.dropdown-toggle').html($(this).text() + ' <span class="caret"></span>');
+                $(this).parents(".dropdown").find('.dropdown-toggle').val($(this).data('value'));
+                var category = $(this).text();
+
+                if(category === 'All Items'){
+                    $('tr.itemPost').each(function () {
+                        $(this).show();
+                    });
+                }else {
+                    $('tr.itemPost').each(function () {
+
+                        if($(this).data('category') === category){
+                            $(this).show();
+                        }else{
+                            $(this).hide();
+                        }
+                    });
+                }
+            });
         } );
     </script>
 {% endblock %}
