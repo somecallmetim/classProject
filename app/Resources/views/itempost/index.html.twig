@@ -18,12 +18,6 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="main-collapseable-navbar">
                 <ul class="nav navbar-nav">
-                    {#<li class="active">#}
-                        {#<a id="inbox-link" class="js-toggle-active" href="{{ path('fos_message_inbox') }}">#}
-                            {#inbox#}
-                            {#<span class="sr-only">(current)</span>#}
-                        {#</a>#}
-                    {#</li>#}
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
                            aria-haspopup="true" aria-expanded="false">Choose a Category <span class="caret"></span></a>
@@ -46,7 +40,7 @@
 
 
                 <ul class="nav navbar-nav navbar-right">
-                    <input type="search" placeholder="Search for Item"/>
+                    <li><input type="search" id="searchInputBox" placeholder="Search for Item"/></li>
                 </ul>
 
             </div><!-- /.navbar-collapse -->
@@ -94,27 +88,50 @@
             $(linkId).parent().addClass('active');
             $(linkId).parent().siblings().removeClass('active');
 
-            $(".dropdown-menu li a").click(function(e){
+            $(".dropdown-menu li a").click(function (e) {
                 $(this).parents(".dropdown").find('.dropdown-toggle').html($(this).text() + ' <span class="caret"></span>');
                 $(this).parents(".dropdown").find('.dropdown-toggle').val($(this).data('value'));
                 var category = $(this).text();
 
-                if(category === 'All Items'){
+                if (category === 'All Items') {
                     $('tr.itemPost').each(function () {
                         $(this).show();
                     });
-                }else {
+                } else {
                     $('tr.itemPost').each(function () {
 
-                        if($(this).data('category') === category){
+                        if ($(this).data('category') === category) {
                             $(this).show();
-                        }else{
+                        } else {
                             $(this).hide();
                         }
                     });
                 }
             });
-        } );
+
+            //borrowed heavily from https://www.w3schools.com/howto/howto_js_filter_table.asp
+            $('#searchInputBox').keyup(function () {
+                // Declare variables
+                var input, filter, table, tr, td, i;
+                input = document.getElementById("searchInputBox");
+                filter = input.value.toLowerCase();
+                table = document.getElementById("js-item-post-table");
+                tr = table.getElementsByTagName("tr");
+
+
+                // Loop through all table rows, and hide those who don't match the search query
+                for (i = 0; i < tr.length; i++) {
+                    td = tr[i].getElementsByTagName("td")[1];
+                    if (td) {
+                        if (td.innerHTML.toLowerCase().indexOf(filter) > -1) {
+                            tr[i].style.display = "";
+                        } else {
+                            tr[i].style.display = "none";
+                        }
+                    }
+                }
+            });
+        });
     </script>
 {% endblock %}
 
