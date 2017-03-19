@@ -58,6 +58,7 @@
                 <th>Name</th>
                 <th>Price</th>
                 <th>Category</th>
+                <th style="display: none">Description</th>
 
             </tr>
             </thead>
@@ -68,6 +69,7 @@
                     <td><a href="{{ path('itempost_show', { 'id': itemPost.id }) }}">{{ itemPost.name }}</a></td>
                     <td>${{ itemPost.price|number_format(2) }}</td>
                     <td>{{ itemPost.category }}</td>
+                    <td style="display: none">{{ itemPost.description }}</td>
                 </tr>
             {% endfor %}
             </tbody>
@@ -112,7 +114,7 @@
             //borrowed heavily from https://www.w3schools.com/howto/howto_js_filter_table.asp
             $('#searchInputBox').keyup(function () {
                 // Declare variables
-                var input, filter, table, tr, td, i;
+                var input, filter, table, tr, td, i, termFoundInItemName, termFoundInDescription;
                 input = document.getElementById("searchInputBox");
                 filter = input.value.toLowerCase();
                 table = document.getElementById("js-item-post-table");
@@ -121,13 +123,26 @@
 
                 // Loop through all table rows, and hide those who don't match the search query
                 for (i = 0; i < tr.length; i++) {
-                    td = tr[i].getElementsByTagName("td")[1];
-                    if (td) {
-                        if (td.innerHTML.toLowerCase().indexOf(filter) > -1) {
-                            tr[i].style.display = "";
+                    td_name = tr[i].getElementsByTagName("td")[1];
+                    td_description = tr[i].getElementsByTagName("td")[4];
+
+                    if (td_name) {
+                        if (td_name.innerHTML.toLowerCase().indexOf(filter) > -1) {
+                            termFoundInItemName = true;
                         } else {
-                            tr[i].style.display = "none";
+                            termFoundInItemName = false;
                         }
+                        if(td_description.innerHTML.toLowerCase().indexOf(filter) > -1){
+                            termFoundInDescription = true;
+                        }else {
+                            termFoundInDescription = false;
+                        }
+                    }
+
+                    if(termFoundInItemName || termFoundInDescription){
+                        tr[i].style.display = "";
+                    }else {
+                        tr[i].style.display = "none";
                     }
                 }
             });
