@@ -19,7 +19,7 @@
             <div class="collapse navbar-collapse" id="main-collapseable-navbar">
                 <ul class="nav navbar-nav">
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                        <a id="selectedCategory" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
                            aria-haspopup="true" aria-expanded="false">Choose a Category <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li><a href="#">TV's, Tablets, Entertainment</a></li>
@@ -64,12 +64,12 @@
             </thead>
             <tbody>
             {% for itemPost in itemPosts %}
-                <tr class="itemPost" data-category="{{ itemPost.category }}">
+                <tr class="itemPost" data-category="{{ itemPost.category }}" data-searchable="true">
                     <td></td>
-                    <td><a href="{{ path('itempost_show', { 'id': itemPost.id }) }}">{{ itemPost.name }}</a></td>
+                    <td><a id="itemName" href="{{ path('itempost_show', { 'id': itemPost.id }) }}">{{ itemPost.name }}</a></td>
                     <td>${{ itemPost.price|number_format(2) }}</td>
                     <td>{{ itemPost.category }}</td>
-                    <td style="display: none">{{ itemPost.description }}</td>
+                    <td id="itemDescription" style="display: none">{{ itemPost.description }}</td>
                 </tr>
             {% endfor %}
             </tbody>
@@ -84,6 +84,7 @@
     {{ parent() }}
     <script>
         $(document).ready(function() {
+//            document.addEventListener('keypress', )
             var linkId = "#itempost";
             var $table = $('#js-item-post-table');
 
@@ -101,7 +102,6 @@
                     });
                 } else {
                     $('tr.itemPost').each(function () {
-
                         if ($(this).data('category') === category) {
                             $(this).show();
                         } else {
@@ -111,39 +111,93 @@
                 }
             });
 
-            //borrowed heavily from https://www.w3schools.com/howto/howto_js_filter_table.asp
-            $('#searchInputBox').keyup(function () {
+
+            $('#searchInputBox').keyup(function (e) {
+
                 // Declare variables
-                var input, filter, table, tr, td, i, termFoundInItemName, termFoundInDescription;
+                var input, filter, table, tr, td, i, termFoundInItemName, termFoundInDescription, category;
                 input = document.getElementById("searchInputBox");
                 filter = input.value.toLowerCase();
                 table = document.getElementById("js-item-post-table");
                 tr = table.getElementsByTagName("tr");
+                termFoundInItemName = false;
+                termFoundInDescription = false;
 
+                category = $('#selectedCategory').text().trim();
+                if (category === "Choose a Category" || category === "All Items") {
+                    category = 'all';
+                }
 
-                // Loop through all table rows, and hide those who don't match the search query
-                for (i = 0; i < tr.length; i++) {
-                    td_name = tr[i].getElementsByTagName("td")[1];
-                    td_description = tr[i].getElementsByTagName("td")[4];
-
-                    if (td_name) {
-                        if (td_name.innerHTML.toLowerCase().indexOf(filter) > -1) {
-                            termFoundInItemName = true;
-                        } else {
-                            termFoundInItemName = false;
+                if(filter.trim() === "") {
+                    $('tr.itemPost').each(function () {
+                        if (category === 'all' || $(this).data('category') === category) {
+                            $(this).show();
                         }
-                        if(td_description.innerHTML.toLowerCase().indexOf(filter) > -1){
-                            termFoundInDescription = true;
-                        }else {
-                            termFoundInDescription = false;
-                        }
-                    }
+                    });
+                } else if (e.keyCode == 8 || e.keyCode == 46){
+                    i=1;
+                    $('tr.itemPost').each(function () {
+                        var td_name = tr[i].getElementsByTagName("td")[1];
+                        var td_description = tr[i].getElementsByTagName("td")[4];
 
-                    if(termFoundInItemName || termFoundInDescription){
-                        tr[i].style.display = "";
-                    }else {
-                        tr[i].style.display = "none";
-                    }
+                        td_name = $(td_name).text();
+                        td_description = $(td_description).text();
+
+                        if(category === 'all' || $(this).data('category') === category) {
+                            if (td_name) {
+                                if (td_name.toLowerCase().search(filter) > -1) {
+                                    termFoundInItemName = true;
+                                } else {
+
+                                    termFoundInItemName = false;
+                                }
+                                if (td_description.toLowerCase().search(filter) > -1) {
+                                    termFoundInDescription = true;
+                                } else {
+                                    termFoundInDescription = false;
+                                }
+                            }
+
+                            if(termFoundInItemName || termFoundInDescription){
+                                $(this).show();
+                            }else {
+                                $(this).hide();
+                            }
+                        }
+                        i++;
+                    });
+                } else{
+                    i=1;
+                    $('tr.itemPost').each(function () {
+                        var td_name = tr[i].getElementsByTagName("td")[1];
+                        var td_description = tr[i].getElementsByTagName("td")[4];
+
+                        td_name = $(td_name).text();
+                        td_description = $(td_description).text();
+
+                        if($(this).is(":visible")) {
+                            if (td_name) {
+                                if (td_name.toLowerCase().search(filter) > -1) {
+                                    termFoundInItemName = true;
+                                } else {
+
+                                    termFoundInItemName = false;
+                                }
+                                if (td_description.toLowerCase().search(filter) > -1) {
+                                    termFoundInDescription = true;
+                                } else {
+                                    termFoundInDescription = false;
+                                }
+                            }
+
+                            if(termFoundInItemName || termFoundInDescription){
+                                $(this).show();
+                            }else {
+                                $(this).hide();
+                            }
+                        }
+                        i++;
+                    });
                 }
             });
         });
