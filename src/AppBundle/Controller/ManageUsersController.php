@@ -70,4 +70,18 @@ class ManageUsersController extends Controller
 
         return $this->redirectToRoute('list_users');
     }
+
+    /**
+     * @Route("/delete_user_post/{id}", name="delete_user_post")
+     *
+     */
+    public function deleteUserPostAction($id){
+        $em = $this->getDoctrine()->getManager();
+        $itemPost = $em -> getRepository('AppBundle:ItemPost') -> find($id);
+
+        $em -> remove($itemPost);
+        $em -> flush();
+
+        return $this -> redirectToRoute('itempost_index');
+    }
 }
