@@ -16,4 +16,12 @@ class DefaultController extends Controller
         // replace this example code with whatever you need
         return $this->render('base.html.twig');
     }
+
+    /**
+     * @Route("/underConstruction", name="under_construction")
+     */
+    public function underConstructionAction()
+    {
+        return $this->render('underConstruction.html.twig');
+    }
 }

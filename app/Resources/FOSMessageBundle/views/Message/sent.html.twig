@@ -1,0 +1,20 @@
+{% extends '@FOSMessage/layout.html.twig' %}
+
+{% block body %}
+    <div class="container">
+        <h2>{% trans from 'FOSMessageBundle' %}sent{% endtrans %}</h2>
+
+        {% include 'FOSMessageBundle:Message:threads_list.html.twig' with {'threads': threads} %}
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $(document).ready(function() {
+            var linkId = "#sent-items-link";
+            $(linkId).parent().addClass('active');
+            $(linkId).parent().siblings().removeClass('active');
+        } );
+    </script>
+{% endblock %}

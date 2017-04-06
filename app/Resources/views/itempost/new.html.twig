@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container">
+        <h1>Post new item to sell!</h1>
+
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <button type="submit" class="btn btn-primary" formnovalidate>
+            Create Listing
+        </button>
+        <a class="form-link" href="{{ path('itempost_index') }}">Cancel</a>
+        {{ form_end(form) }}
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $(document).ready(function() {
+            var linkId = "#itempost";
+            $(linkId).parent().addClass('active');
+            $(linkId).parent().siblings().removeClass('active');
+        } );
+    </script>
+{% endblock %}

@@ -8,6 +8,14 @@ imports:
 parameters:
     locale: en
 
+fos_message:
+    db_driver: orm
+    thread_class: AppBundle\Entity\Thread
+    message_class: AppBundle\Entity\Message
+    new_thread_form:
+        type: app.new_thread_form_type
+        factory: app.new_thread_form_factory
+
 framework:
     #esi:             ~
     #translator:      { fallbacks: ["%locale%"] }
@@ -38,6 +46,8 @@ framework:
 twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
+    form_themes:
+        - bootstrap_3_layout.html.twig
 
 # Doctrine Configuration
 doctrine:
