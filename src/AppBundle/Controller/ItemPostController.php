@@ -115,5 +115,4 @@ class ItemPostController extends Controller
 
         return $this->redirectToRoute('itempost_index');
     }
-
 }
