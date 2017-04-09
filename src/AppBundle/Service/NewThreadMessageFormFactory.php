@@ -19,6 +19,9 @@ class NewThreadMessageFormFactory extends AbstractMessageFormFactory
      */
     public function create()
     {
-        return $this->formFactory->createNamed($this->formName, $this->formType, $this->createModelInstance());
+//        dump($this);die;
+//        return $this->formFactory->createNamed($this->formName, $this->formType, $this->createModelInstance());
+        return $this->
+            formFactory->createNamed($this->formName, 'AppBundle\Service\NewThreadMessageFormType', $this->createModelInstance());
     }
 }

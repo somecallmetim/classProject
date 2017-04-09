@@ -29,18 +29,23 @@ services:
 
       app.user_to_username_transformer:
           class: AppBundle\Form\DataTransformer\UserToUsernameTransformer
-          arguments:
-              type: "service"
-              id: "doctrine"
+          arguments: ['@doctrine']
+
+
+      app.form.type.username:
+          class: AppBundle\Form\Type\UsernameFormType
+          arguments: ['@app.user_to_username_transformer']
+          tags:
+              - { name: form.type }
 
       app.new_thread_form_type:
           class: AppBundle\Service\NewThreadMessageFormType
-          public: false
           arguments: ['@app.user_to_username_transformer']
+          tags:
+              - {name: form.type}
 
       app.new_thread_form_factory:
           class: AppBundle\Service\NewThreadMessageFormFactory
-          public: false
           arguments: [
               '@form.factory',
               '@fos_message.new_thread_form.type',
