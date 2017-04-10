@@ -69,6 +69,6 @@ class UserToUsernameTransformer implements DataTransformerInterface
             throw new UnexpectedTypeException($value, 'string');
         }
 
-        return $this->repository->findOneByUsername($value);
+        return $this->repository->findOneByUsername($value)[0];
     }
 }

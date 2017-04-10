@@ -168,4 +168,9 @@ class User implements UserInterface, ParticipantInterface
         $this->plainPassword = $plainPassword;
         $this->password = null;
     }
+
+    function __toString()
+    {
+        return (string)$this->username;
+    }
 }
