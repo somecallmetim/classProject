@@ -7,3 +7,48 @@ services:
 #    service_name:
 #        class: AppBundle\Directory\ClassName
 #        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
+      app.security.login_form_authenticator:
+          class: AppBundle\Security\LoginFormAuthenticator
+          autowire: true
+
+      app.doctrine.hash_password_listener:
+          class: AppBundle\Doctrine\HashPasswordListener
+          autowire: true
+          tags:
+              - { name: doctrine.event_subscriber }
+
+      app.post_voter:
+          class: AppBundle\Security\PostVoter
+          arguments: ['@security.access.decision_manager']
+          public: false
+          tags:
+              - { name: security.voter }
+
+      fos_user.user_to_username_transformer:
+          alias: app.user_to_username_transformer
+
+      app.user_to_username_transformer:
+          class: AppBundle\Form\DataTransformer\UserToUsernameTransformer
+          arguments: ['@doctrine']
+
+
+      app.form.type.username:
+          class: AppBundle\Form\Type\UsernameFormType
+          arguments: ['@app.user_to_username_transformer']
+          tags:
+              - { name: form.type }
+
+      app.new_thread_form_type:
+          class: AppBundle\Service\NewThreadMessageFormType
+          arguments: ['@app.user_to_username_transformer']
+          tags:
+              - {name: form.type}
+
+      app.new_thread_form_factory:
+          class: AppBundle\Service\NewThreadMessageFormFactory
+          arguments: [
+              '@form.factory',
+              '@fos_message.new_thread_form.type',
+              '%fos_message.new_thread_form.name%',
+              '%fos_message.new_thread_form.model%'
+              ]

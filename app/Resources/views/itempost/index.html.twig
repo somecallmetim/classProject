@@ -1,0 +1,206 @@
+{% extends 'base.html.twig' %}
+
+{% block navbar %}
+    {{ parent() }}
+    <nav class="navbar navbar-default navbar-sub">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-collapseable-navbar" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="main-collapseable-navbar">
+                <ul class="nav navbar-nav">
+                    <li class="dropdown">
+                        <a id="selectedCategory" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                           aria-haspopup="true" aria-expanded="false">Choose a Category <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">TV's, Tablets, Entertainment</a></li>
+                            <li><a href="#">Furnishings</a></li>
+                            <li><a href="#">Laptops</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="#">Text Books</a></li>
+                            <li><a href="#">School Supplies</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="#">Tutoring Services</a></li>
+                            <li><a href="#">Roommate Wanted</a></li>
+                            <li><a href="#">Misc</a></li>
+                            <li><a href="#">All Items</a> </li>
+                        </ul>
+                    </li>
+
+                </ul>
+
+
+                <ul class="nav navbar-nav navbar-right">
+                    <li><input type="search" id="searchInputBox" placeholder="Search for Item"/></li>
+                </ul>
+
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </nav>
+{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+        <table id="js-item-post-table" class="table table-responsive">
+            <thead>
+            <tr>
+                <th></th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Category</th>
+                <th style="display: none">Description</th>
+
+            </tr>
+            </thead>
+            <tbody>
+            {% for itemPost in itemPosts %}
+                <tr class="itemPost" data-category="{{ itemPost.category }}" data-searchable="true">
+                    <td></td>
+                    <td><a id="itemName" href="{{ path('itempost_show', { 'id': itemPost.id }) }}">{{ itemPost.name }}</a></td>
+                    <td>${{ itemPost.price|number_format(2) }}</td>
+                    <td>{{ itemPost.category }}</td>
+                    <td id="itemDescription" style="display: none">{{ itemPost.description }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        <a class="btn btn-primary" href="{{ path("itempost_new") }}" role="button">Sell New Item</a>
+
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $(document).ready(function() {
+//            document.addEventListener('keypress', )
+            var linkId = "#itempost";
+            var $table = $('#js-item-post-table');
+
+            $(linkId).parent().addClass('active');
+            $(linkId).parent().siblings().removeClass('active');
+
+            $(".dropdown-menu li a").click(function (e) {
+                $(this).parents(".dropdown").find('.dropdown-toggle').html($(this).text() + ' <span class="caret"></span>');
+                $(this).parents(".dropdown").find('.dropdown-toggle').val($(this).data('value'));
+                var category = $(this).text();
+
+                if (category === 'All Items') {
+                    $('tr.itemPost').each(function () {
+                        $(this).show();
+                    });
+                } else {
+                    $('tr.itemPost').each(function () {
+                        if ($(this).data('category') === category) {
+                            $(this).show();
+                        } else {
+                            $(this).hide();
+                        }
+                    });
+                }
+            });
+
+
+            $('#searchInputBox').keyup(function (e) {
+
+                // Declare variables
+                var input, filter, table, tr, td, i, termFoundInItemName, termFoundInDescription, category;
+                input = document.getElementById("searchInputBox");
+                filter = input.value.toLowerCase();
+                table = document.getElementById("js-item-post-table");
+                tr = table.getElementsByTagName("tr");
+                termFoundInItemName = false;
+                termFoundInDescription = false;
+
+                category = $('#selectedCategory').text().trim();
+                if (category === "Choose a Category" || category === "All Items") {
+                    category = 'all';
+                }
+
+                if(filter.trim() === "") {
+                    $('tr.itemPost').each(function () {
+                        if (category === 'all' || $(this).data('category') === category) {
+                            $(this).show();
+                        }
+                    });
+                } else if (e.keyCode == 8 || e.keyCode == 46){
+                    i=1;
+                    $('tr.itemPost').each(function () {
+                        var td_name = tr[i].getElementsByTagName("td")[1];
+                        var td_description = tr[i].getElementsByTagName("td")[4];
+
+                        td_name = $(td_name).text();
+                        td_description = $(td_description).text();
+
+                        if(category === 'all' || $(this).data('category') === category) {
+                            if (td_name) {
+                                if (td_name.toLowerCase().search(filter) > -1) {
+                                    termFoundInItemName = true;
+                                } else {
+
+                                    termFoundInItemName = false;
+                                }
+                                if (td_description.toLowerCase().search(filter) > -1) {
+                                    termFoundInDescription = true;
+                                } else {
+                                    termFoundInDescription = false;
+                                }
+                            }
+
+                            if(termFoundInItemName || termFoundInDescription){
+                                $(this).show();
+                            }else {
+                                $(this).hide();
+                            }
+                        }
+                        i++;
+                    });
+                } else{
+                    i=1;
+                    $('tr.itemPost').each(function () {
+                        var td_name = tr[i].getElementsByTagName("td")[1];
+                        var td_description = tr[i].getElementsByTagName("td")[4];
+
+                        td_name = $(td_name).text();
+                        td_description = $(td_description).text();
+
+                        if($(this).is(":visible")) {
+                            if (td_name) {
+                                if (td_name.toLowerCase().search(filter) > -1) {
+                                    termFoundInItemName = true;
+                                } else {
+
+                                    termFoundInItemName = false;
+                                }
+                                if (td_description.toLowerCase().search(filter) > -1) {
+                                    termFoundInDescription = true;
+                                } else {
+                                    termFoundInDescription = false;
+                                }
+                            }
+
+                            if(termFoundInItemName || termFoundInDescription){
+                                $(this).show();
+                            }else {
+                                $(this).hide();
+                            }
+                        }
+                        i++;
+                    });
+                }
+            });
+        });
+    </script>
+{% endblock %}
+

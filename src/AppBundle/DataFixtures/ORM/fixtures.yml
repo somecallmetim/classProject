@@ -1,0 +1,16 @@
+AppBundle\Entity\User:
+    user_{1..10}:
+        username (unique): <username()>
+        email (unique): <email()>
+        plainPassword: iliketurtles
+
+AppBundle\Entity\ItemPost:
+    itemPost_{1..50}:
+        user: '@user_*'
+        name: <word()>
+        price: <randomFloat(2, 1, 5000)>
+        description: <paragraph()>
+        category: <randomElement($array = array('TV\'s, Tablets, Entertainment',
+            'Furnishings','Laptops','Text Books','School Supplies','Tutoring Services',
+            'Roommate Wanted','Misc'))>
+        postDate: <dateTimeBetween('-6 months', 'now')>
