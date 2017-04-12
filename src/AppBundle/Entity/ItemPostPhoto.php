@@ -30,7 +30,7 @@ class ItemPostPhoto {
     private $path;
 
     /**
-     * @ORM\ManyToOne(targetEntity="ItemPost", inversedBy="photo")
+     * @ORM\ManyToOne(targetEntity="ItemPost", inversedBy="photos")
      * @ORM\JoinColumn(name="item_post_id", referencedColumnName="id", nullable=false)
      */
     private $itemPost;
