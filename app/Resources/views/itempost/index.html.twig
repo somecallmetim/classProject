@@ -55,7 +55,7 @@
             <thead>
             <tr>
                 <th></th>
-                <th>Name</th>
+                <th>Item Name</th>
                 <th>Price</th>
                 <th>Category</th>
                 <th style="display: none">Description</th>
@@ -70,6 +70,7 @@
                     <td>${{ itemPost.price|number_format(2) }}</td>
                     <td>{{ itemPost.category }}</td>
                     <td id="itemDescription" style="display: none">{{ itemPost.description }}</td>
+                    <td> <a href = "{{ path('fos_message_thread_contact_seller', {'id': itemPost.id}) }}" class = "btn btn-info">Contact Seller</a></td>
                 </tr>
             {% endfor %}
             </tbody>
