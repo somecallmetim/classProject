@@ -30,9 +30,12 @@
                 <th>Photo</th>
                 <td>
                     {% for photo in itemPost.photos %}
-                        {{ photo.path }}
+                        <img class="itemPost-photo" src="{{ asset(photo.path) }}">
                     {% endfor %}
+
                 </td>
+
+
             </tr>
             </tbody>
         </table>
