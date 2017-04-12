@@ -28,7 +28,11 @@
             </tr>
             <tr>
                 <th>Photo</th>
-                <td>{{ itemPost.photo }}</td>
+                <td>
+                    {% for photo in itemPost.photos %}
+                        {{ photo.path }}
+                    {% endfor %}
+                </td>
             </tr>
             </tbody>
         </table>
