@@ -50,6 +50,12 @@ class ItemPostController extends Controller
             $itemPost = $form->getData();
             $itemPost->setPostDate(new \DateTime());
             $itemPost->setUser($this->getUser());
+
+            //dummy data for testing addPhoto feature
+            $itemPost->addPhoto('myphoto.jpg');
+            $itemPost->addPhoto('myphoto2.jpg');
+            //endtest
+
             $em->persist($itemPost);
             $em->flush();
 
