@@ -52,8 +52,7 @@ class ItemPostController extends Controller
             $itemPost->setUser($this->getUser());
 
             //dummy data for testing addPhoto feature
-            $itemPost->addPhoto('myphoto.jpg');
-            $itemPost->addPhoto('myphoto2.jpg');
+            $itemPost->addPhoto('/images/sfsu-seal.jpg');
             //endtest
 
             $em->persist($itemPost);
