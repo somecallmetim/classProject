@@ -79,6 +79,7 @@ swiftmailer:
     password:  "%mailer_password%"
     spool:     { type: memory }
 
+#vich uploader mappings and behavior
 vich_uploader:
     db_driver: orm
 
@@ -86,3 +87,7 @@ vich_uploader:
             product_image:
                 uri_prefix:         /images/itemPostPhotos
                 upload_destination: '%kernel.root_dir%/../web/images/itemPostPhotos'
+
+                inject_on_load:     false
+                delete_on_update:   true
+                delete_on_remove:   true
