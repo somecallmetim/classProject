@@ -15,10 +15,12 @@
                 {{ form_row(form.plainPassword.second, {
                     'label': 'Repeat Password'
                 }) }}
-
+                {{ form_widget(form.termsAccepted) }}
+                <a href="http://sfsuse.com/~sp17g05/classProject/web/">cancel</a>
                 <button type="submit" class="btn btn-primary" formnovalidate>
                     Register
                 </button>
+
                 {{ form_end(form) }}
             </div>
         </div>
