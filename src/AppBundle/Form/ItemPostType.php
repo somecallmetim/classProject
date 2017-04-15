@@ -1,13 +1,10 @@
 <?php
-
 namespace AppBundle\Form;
-
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-
-
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 class ItemPostType extends AbstractType
 {
     /**
@@ -32,9 +29,11 @@ class ItemPostType extends AbstractType
                     'Misc' => 'Misc'
                 ]
             ])
+            ->add('image', FileType::class, array('attr' =>array(
+                'label' => 'Upload image')))
         ;
     }
-    
+
     /**
      * {@inheritdoc}
      */
