@@ -21,9 +21,9 @@ class ItemPostPhotoType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            // ...
+            
             ->add('itemPostPhoto', FileType::class, array('label' => 'Photo (image file)'))
-            // ...
+
         ;
     }
 
