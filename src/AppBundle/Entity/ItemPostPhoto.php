@@ -31,35 +31,35 @@ class ItemPostPhoto {
     */
     private $path;
 
-   /**
-    * NOTE: This is not a mapped field of entity metadata, just a simple property.
-    *
-    * @Vich\UploadableField(mapping="itemPostPhoto", fileNameProperty="photoName", size="photoSize")
-    *
-    * @var File
-    */
-    private $photoFile;
-  
-   /**
-    * @ORM\Column(type="string", length=255)
-    *
-    * @var string
-    */
-    private $photoName;
-
-   /**
-    * @ORM\Column(type="integer")
-    *
-    * @var integer
-    */
-    private $photoSize;
-
-   /**
-    * @ORM\Column(type="datetime")
-    *
-    * @var \DateTime
-    */
-    private $updatedAt;
+//   /**
+//    * NOTE: This is not a mapped field of entity metadata, just a simple property.
+//    *
+//    * @Vich\UploadableField(mapping="itemPostPhoto", fileNameProperty="photoName", size="photoSize")
+//    *
+//    * @var File
+//    */
+//    private $photoFile;
+//
+//   /**
+//    * @ORM\Column(type="string", length=255)
+//    *
+//    * @var string
+//    */
+//    private $photoName;
+//
+//   /**
+//    * @ORM\Column(type="integer")
+//    *
+//    * @var integer
+//    */
+//    private $photoSize;
+//
+//   /**
+//    * @ORM\Column(type="datetime")
+//    *
+//    * @var \DateTime
+//    */
+//    private $updatedAt;
 
    /**
     * @ORM\ManyToOne(targetEntity="ItemPost", inversedBy="photos")
