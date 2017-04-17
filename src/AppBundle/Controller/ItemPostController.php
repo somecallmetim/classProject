@@ -69,9 +69,11 @@ class ItemPostController extends Controller
      */
     public function showAction(ItemPost $itemPost)
     {
+       
+
 
         return $this->render('itempost/show.html.twig', array(
-            'itemPost' => $itemPost
+            'itemPost' => $itemPost,
         ));
     }
 

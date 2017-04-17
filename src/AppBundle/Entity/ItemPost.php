@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 use Symfony\Component\Validator\Constraints as Assert;
 use AppBundle\Entity\User;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * ItemPost
@@ -69,11 +70,14 @@ class ItemPost
     private $postDate;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="photo", type="string", length=255, nullable=true)
+     * @ORM\OneToMany(targetEntity="ItemPostPhoto", mappedBy="itemPost", cascade={"all"})
      */
-    private $photo;
+    private $photos;
+
+    public function __construct()
+    {
+        $this->photos = new ArrayCollection();
+    }
 
 
     /**
@@ -225,26 +229,20 @@ class ItemPost
     }
 
     /**
-     * Set photo
-     *
-     * @param string $photo
-     *
-     * @return ItemPost
+     * @return mixed
      */
-    public function setPhoto($photo)
+    public function getPhotos()
     {
-        $this->photo = $photo;
-
-        return $this;
+        return $this->photos;
     }
 
     /**
-     * Get photo
-     *
-     * @return string
+     * a path to photo, itempost object
+     * @param $path String
      */
-    public function getPhoto()
-    {
-        return $this->photo;
+    public function addPhoto($path) {
+        $photo = new ItemPostPhoto($path, $this);
+        $this->photos->add($photo);
+
     }
 }
