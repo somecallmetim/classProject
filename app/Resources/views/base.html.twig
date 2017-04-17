@@ -48,6 +48,11 @@
                                 <span class="sr-only">(current)</span>
                             </a>
                         </li>
+                        <li>
+                            <a id="post-item" class="js-toggle-active-main-navbar" href="{{ path('itempost_new') }}">
+                                Sell Item
+                            </a>
+                        </li>
                         {% if is_granted('ROLE_USER')%}
                             <li><a id="my-market-place-link" class="js-toggle-active-main-navbar" href="{{ path('myMarketplace') }}">My Marketplace</a></li>
                             <li><a id="mailbox-link" class="js-toggle-active-main-navbar" href="{{ path('fos_message_inbox') }}">Mailbox</a></li>
@@ -144,19 +149,6 @@
     <script src={{ asset('js/carousel.js') }}></script>
     <script>
         $(document).ready(function() {
-            {#var linkId = {{ linkId|json_encode|raw }};#}
-//            if(linkId != false){
-//                var targetLink= linkId;
-//                $(targetLink).parent().addClass('active');
-//                $(targetLink).parent().siblings().removeClass('active');
-//            }
-
-//            $(".js-toggle-active-main-navbar").click(function () {
-//                var id = "#" + $(this).attr('id');
-//                $(id).parent().addClass('active');
-//                $(id).parent().siblings().removeClass('active');
-//            });
-
             $(function () {
                 $('[data-toggle="popover"]').popover()
             });
