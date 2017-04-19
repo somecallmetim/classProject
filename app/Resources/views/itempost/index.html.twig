@@ -55,7 +55,8 @@
             <thead>
             <tr>
                 <th></th>
-                <th>Name</th>
+                <th></th>
+                <th>Item Name</th>
                 <th>Price</th>
                 <th>Category</th>
                 <th style="display: none">Description</th>
@@ -66,6 +67,7 @@
             {% for itemPost in itemPosts %}
                 <tr class="itemPost" data-category="{{ itemPost.category }}" data-searchable="true">
                     <td></td>
+                    <td> <a class ="btn btn-primary" href = "{{ path('fos_message_thread_contact_seller', {'id': itemPost.id}) }}" class = "btn btn-info">Contact Seller</a></td>
                     <td><a id="itemName" href="{{ path('itempost_show', { 'id': itemPost.id }) }}">{{ itemPost.name }}</a></td>
                     <td>${{ itemPost.price|number_format(2) }}</td>
                     <td>{{ itemPost.category }}</td>
