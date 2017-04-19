@@ -2,9 +2,9 @@
 
 namespace AppBundle\Form;
 
-use AppBundle\Entity\ItemPost;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -33,6 +33,7 @@ class ItemPostType extends AbstractType
                     'Misc' => 'Misc'
                 ]
             ])
+            ->add('photo', FileType::class, array('label' => 'Photo (image file)'))
         ;
     }
     

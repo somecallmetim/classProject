@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use AppBundle\Entity\User;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\HttpFoundation\File\File;
 
 /**
  * ItemPost
@@ -73,6 +74,11 @@ class ItemPost
      * @ORM\OneToMany(targetEntity="ItemPostPhoto", mappedBy="itemPost", cascade={"all"})
      */
     private $photos;
+
+    /**
+     * @var File
+     */
+    private $photo;
 
     public function __construct()
     {
@@ -244,5 +250,22 @@ class ItemPost
         $photo = new ItemPostPhoto($path, $this);
         $this->photos->add($photo);
 
+    }
+
+    /**
+     * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile $photo
+     */
+    public function setPhoto(File $photo)
+    {
+        $this->photo = $photo;
+
+    }
+
+    /**
+     * @return File|null
+     */
+    public function getPhoto()
+    {
+        return $this->photo;
     }
 }

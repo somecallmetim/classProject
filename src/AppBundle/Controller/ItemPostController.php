@@ -50,6 +50,21 @@ class ItemPostController extends Controller
             $itemPost = $form->getData();
             $itemPost->setPostDate(new \DateTime());
             $itemPost->setUser($this->getUser());
+
+            $file = $itemPost->getPhoto();
+            if ($file != null) {
+                // Generate a unique name for the file before saving it
+                $fileName = md5(uniqid()) . '.' . $file->guessExtension();
+                // Move the file to the correct folder
+                $file->move(
+                    $this->getParameter('upload_destination'),
+                    $fileName
+                );
+
+                //stores path to file into database
+                $itemPost->addPhoto('/images/ItemPostPhotos/' . $fileName);
+            }
+
             $em->persist($itemPost);
             $em->flush();
 
