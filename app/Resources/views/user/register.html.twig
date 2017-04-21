@@ -6,17 +6,18 @@
             <div class="col-xs-12">
                 <h1>Register!</h1>
 
-                {{ form_start(form) }}
+                {{ form_start(form, {'attr':{'class':'myclass'}}) }}
                 {{ form_row(form.username) }}
-                {{ form_row(form.email) }}
+                {{ form_row(form.email)}}
                 {{ form_row(form.plainPassword.first, {
                     'label': 'Password'
                 }) }}
+
                 {{ form_row(form.plainPassword.second, {
                     'label': 'Repeat Password'
                 }) }}
                 <a href="https://termsfeed.com/terms-service/2f805086c3002ea1b07084f032c3bc5e">Terms of service</a>
-                {{ form_row(form.termsAccepted) }}
+                {{ form_row(form.IHaveReadAndAcceptTheTermsOfService) }}
 
                 <a href="http://sfsuse.com/~sp17g05/classProject/web/">cancel</a>
 
