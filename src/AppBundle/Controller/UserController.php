@@ -38,38 +38,17 @@ class UserController extends Controller
                 $user->setRoles(['ROLE_SUPER_ADMIN']);
             }
 
-            //check email if it is end with @sfsu.edu
-            $userEmail = $user->getEmail();
-            $index = -1;
-            $emailSubString='';
-            $sfsuEmail = '@sfsu.edu';
+            $em->persist($user);
+            $em->flush();
 
-            for($i=0; $i<strlen($userEmail);$i++ ){
-                if($userEmail[$i] == '@'){
-                    $index = $i;
-                }
-            }
-            $emailSubString = substr($userEmail,$index);
-
-            if (strcasecmp($sfsuEmail, $emailSubString) != 0) {
-                //error: not sfsu email
-                $this->addFlash('error', 'Sorry, this site only support SFSU email addess.');
-                return $this->redirectToRoute('user_register');
-            }
-            else{
-                //success: sfsu email
-                $em->persist($user);
-                $em->flush();
-
-                $this->addFlash('success', 'Welcome '.$user->getUsername());
-                return $this->get('security.authentication.guard_handler')
-                    ->authenticateUserAndHandleSuccess(
-                        $user,
-                        $request,
-                        $this->get('app.security.login_form_authenticator'),
-                        'main'
-                    );
-            }
+            $this->addFlash('success', 'Welcome '.$user->getUsername());
+            return $this->get('security.authentication.guard_handler')
+                ->authenticateUserAndHandleSuccess(
+                    $user,
+                    $request,
+                    $this->get('app.security.login_form_authenticator'),
+                    'main'
+                );
         }
 
         return $this->render('user/register.html.twig', [

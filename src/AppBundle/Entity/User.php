@@ -14,6 +14,7 @@ use FOS\MessageBundle\Model\ParticipantInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use AppBundle\Validator\Constraints as AcmeAssert;
 
 /**
  * @ORM\Entity(repositoryClass="AppBundle\Repository\UserRepository")
@@ -40,6 +41,7 @@ class User implements UserInterface, ParticipantInterface
     /**
      * @Assert\NotBlank()
      * @Assert\Email()
+     * @AcmeAssert\ContainsSfsuEmail
      * @ORM\Column(type="string", unique=true)
      */
     private $email;
