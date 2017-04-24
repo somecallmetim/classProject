@@ -43,14 +43,14 @@ class UserController extends Controller
             $index = -1;
             $emailSubString='';
             $sfsuEmail = '@sfsu.edu';
+
             for($i=0; $i<strlen($userEmail);$i++ ){
                 if($userEmail[$i] == '@'){
                     $index = $i;
                 }
             }
             $emailSubString = substr($userEmail,$index);
-            dump($sfsuEmail);
-            dump($emailSubString);
+
             if (strcasecmp($sfsuEmail, $emailSubString) != 0) {
                 //error: not sfsu email
                 $this->addFlash('error', 'Sorry, this site only support SFSU email addess.');
