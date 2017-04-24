@@ -18,7 +18,8 @@ class ContainsSfsuEmailValidator extends ConstraintValidator
     {
         $index = -1;
         $emailSubString='';
-        $sfsuEmail = '@sfsu.edu';
+        $sfsuEmail1 = '@sfsu.edu';
+        $sfsuEmail2 = '@mail.sfsu.edu';
 
         for($i=0; $i<strlen($userEmail);$i++ ){
             if($userEmail[$i] == '@'){
@@ -27,7 +28,7 @@ class ContainsSfsuEmailValidator extends ConstraintValidator
         }
         $emailSubString = substr($userEmail,$index);
 
-        if (strcasecmp($sfsuEmail, $emailSubString) != 0) {
+        if ( (strcasecmp($sfsuEmail1, $emailSubString) != 0) && (strcasecmp($sfsuEmail2, $emailSubString) != 0)) {
             //error: not sfsu email
             $this->context->buildViolation($constraint->message)
                 ->addViolation();
