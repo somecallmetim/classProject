@@ -235,5 +235,12 @@ h1, h2, h3, h4, h5, h6, p {
         padding-left: 0px;
         max-width: 930px;
     }
+.form-control{
+    width: 25%;
+}
+}
 
+.required:after {
+    color: orangered;
+    content: " *";
 }
