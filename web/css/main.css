@@ -142,11 +142,9 @@ h1, h2, h3, h4, h5, h6, p {
     background-color: rgb(21, 20, 91);
 }
 
-#buttonAlignFields{
-    color: rgb(213, 166, 13);
-    background-color: rgb(21, 20, 91);
+.btn-form-rightside{
     float:right;
-    margin-right: 680px;
+    margin-right: 685px;
 }
 
 .btn-primary:hover {
