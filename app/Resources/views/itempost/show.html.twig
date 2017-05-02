@@ -36,9 +36,9 @@
         <a class="btn btn-primary" href="{{ path('itempost_index') }}">Done</a>
 
         {% if itemPost.user  == app.user  %}
-            <a class="form-link" href="{{ path('itempost_edit', { 'id': itemPost.id }) }}">Edit</a>
+            <a class="btn btn-primary" href="{{ path('itempost_edit', { 'id': itemPost.id }) }}">Edit</a>
         {% else %}
-            <a class="form-link" href="{{ path('fos_message_thread_contact_seller', { 'id': itemPost.id }) }}">Contact Seller</a>
+            <a class="btn btn-primary" href="{{ path('fos_message_thread_contact_seller', { 'id': itemPost.id }) }}">Contact Seller</a>
             {#<a class="form-link" href="{{ path('fos_message_thread_contact_seller', { 'id': itemPost.id }) }}">Delete</a>#}
         {% endif %}
 
