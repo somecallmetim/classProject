@@ -31,7 +31,7 @@
                 <td>
                     {% for photo in itemPost.photos %}
                         <a href="{{ asset(photo.path) }}">
-                            <img class="resize" src="{{ asset(photo.path) }}" style="width:200px;;border:0;">
+                            <img class="ItemPostPhoto" src="{{ asset(photo.path) }}" style="width:200px;;border:0;">
                         </a>
                     {% endfor %}
 
