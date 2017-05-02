@@ -76,13 +76,33 @@ class ItemPost
     private $photos;
 
     /**
-     * @var File
+     * @Assert\All({
+     *     @Assert\Image(maxSize = "10240k")
+     * })
+     * @Assert\Count(max = 5, maxMessage="You can only upload up to 5 photos.")
      */
-    private $photo;
+    private $photoList;
 
     public function __construct()
     {
         $this->photos = new ArrayCollection();
+        $this->photoList = new ArrayCollection();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPhotoList()
+    {
+        return $this->photoList;
+    }
+
+    /** Set photos
+     * @param $photoList
+     */
+    public function setPhotoList($photoList)
+    {
+        $this->photoList = $photoList;
     }
 
 
@@ -235,14 +255,6 @@ class ItemPost
     }
 
     /**
-     * @return mixed
-     */
-    public function getPhotos()
-    {
-        return $this->photos;
-    }
-
-    /**
      * a path to photo, itempost object
      * @param $path String
      */
@@ -250,22 +262,5 @@ class ItemPost
         $photo = new ItemPostPhoto($path, $this);
         $this->photos->add($photo);
 
-    }
-
-    /**
-     * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile $photo
-     */
-    public function setPhoto(File $photo)
-    {
-        $this->photo = $photo;
-
-    }
-
-    /**
-     * @return File|null
-     */
-    public function getPhoto()
-    {
-        return $this->photo;
     }
 }
