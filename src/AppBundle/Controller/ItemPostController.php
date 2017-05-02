@@ -51,16 +51,10 @@ class ItemPostController extends Controller
             $itemPost->setPostDate(new \DateTime());
             $itemPost->setUser($this->getUser());
 
-//            $file = $itemPost->getPhoto();
             $files = $itemPost->getPhotoList();
 
             if ($files != null) {
-                $constraints = array('maxSize'=>'1M', 'mimeTypes' => array('image/*'));
-
                 foreach($files as $file) {
-                    $validator = $this->get('validator');
-
-                   // $errors = $validator->validateValue($file, $constraints);
                     // Generate a unique name for the file before saving it
                     $fileName = md5(uniqid()) . '.' . $file->guessExtension();
                     // Move the file to the correct folder

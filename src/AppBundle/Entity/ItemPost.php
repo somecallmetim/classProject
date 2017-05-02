@@ -77,7 +77,7 @@ class ItemPost
 
     /**
      * @Assert\All({
-     *     @Assert\Image(maxSize = "10240k")
+     *     @Assert\Image(maxSize="10M")
      * })
      * @Assert\Count(max = 5, maxMessage="You can only upload up to 5 photos.")
      */
@@ -90,6 +90,15 @@ class ItemPost
     }
 
     /**
+     * @return mixed
+     */
+    public function getPhotos()
+    {
+        return $this->photos;
+    }
+
+    /**
+     * Get photo list
      * @return mixed
      */
     public function getPhotoList()
@@ -243,6 +252,7 @@ class ItemPost
 
         return $this;
     }
+
 
     /**
      * Get postDate
