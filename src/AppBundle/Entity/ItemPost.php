@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use AppBundle\Entity\User;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\HttpFoundation\File\File;
 
 /**
  * ItemPost
@@ -74,9 +75,43 @@ class ItemPost
      */
     private $photos;
 
+    /**
+     * @Assert\All({
+     *     @Assert\Image(maxSize="10M")
+     * })
+     * @Assert\Count(max = 5, maxMessage="You can only upload up to 5 photos.")
+     */
+    private $photoList;
+
     public function __construct()
     {
         $this->photos = new ArrayCollection();
+        $this->photoList = new ArrayCollection();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPhotos()
+    {
+        return $this->photos;
+    }
+
+    /**
+     * Get photo list
+     * @return mixed
+     */
+    public function getPhotoList()
+    {
+        return $this->photoList;
+    }
+
+    /** Set photos
+     * @param $photoList
+     */
+    public function setPhotoList($photoList)
+    {
+        $this->photoList = $photoList;
     }
 
 
@@ -218,6 +253,7 @@ class ItemPost
         return $this;
     }
 
+
     /**
      * Get postDate
      *
@@ -226,14 +262,6 @@ class ItemPost
     public function getPostDate()
     {
         return $this->postDate;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getPhotos()
-    {
-        return $this->photos;
     }
 
     /**

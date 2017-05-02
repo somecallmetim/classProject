@@ -2,11 +2,12 @@
 
 namespace AppBundle\Form;
 
-use AppBundle\Entity\ItemPost;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Length;
 
 
 class ItemPostType extends AbstractType
@@ -33,6 +34,8 @@ class ItemPostType extends AbstractType
                     'Misc' => 'Misc'
                 ]
             ])
+            ->add('photoList', FileType::class, array('multiple' => true,'label' => 'Photo'))
+
         ;
     }
     
