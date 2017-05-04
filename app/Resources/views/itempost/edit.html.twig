@@ -6,17 +6,18 @@
 
         {{ form_start(edit_form) }}
         {{ form_widget(edit_form) }}
+        <button type="submit" class="btn btn-primary" formnovalidate>Submit</button>
+        <a class="form-link" href="{{ path('itempost_delete', { 'id': itemPost.id }) }}">Delete</a>
+        {{ form_end(edit_form) }}
+        <hr>
+        <h3>Manage Photos</h3>
         <div>
             {% for photo in itemPost.photos %}
                 <img class="ItemPostPhoto" src="{{ asset(photo.path) }}" style="width:100px;;border:0;">
                 <a href="{{ path('photo_delete', {'id': photo.id}) }}"><span class="fa fa-close" style="color: red"></span></a>
              {% endfor %}
         </div>
-        {#<a href="{{ path('itempost_delete', {'id': itemPost.id}) }}"><span class="fa fa-close" style="color: red"></span></a>#}
-        <button type="submit" class="btn btn-primary" formnovalidate>Submit</button>
-        <a class="form-link" href="{{ path('itempost_delete', { 'id': itemPost.id }) }}">Delete</a>
-        {{ form_end(edit_form) }}
-
+        <br>
 {% endblock %}
 
 {% block javascripts %}
