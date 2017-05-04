@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\ItemPost;
+use AppBundle\Entity\ItemPostPhoto;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -134,6 +135,26 @@ class ItemPostController extends Controller
         $em->flush();
 
         return $this->redirectToRoute('itempost_index');
+    }
+
+    /**
+     * @Route("/{id}/deletePhoto", name="photo_delete")
+     */
+    public function photoDeleteAction(ItemPostPhoto $itemPostPhoto, Request $request) {
+
+        $this->denyAccessUnlessGranted('edit', $itemPostPhoto->getItemPost());
+
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($itemPostPhoto);
+        $em->flush();
+
+        $editForm = $this->createForm('AppBundle\Form\ItemPostType', $itemPostPhoto->getItemPost());
+        $editForm->handleRequest($request);
+
+        return $this->redirectToRoute('itempost_edit', array(
+            'id' => $itemPostPhoto->getItemPost()->getId()
+        ));
+
     }
 
 }
