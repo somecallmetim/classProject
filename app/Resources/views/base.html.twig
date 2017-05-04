@@ -96,7 +96,7 @@
             </h1>
         </div> <!-- end "page-header" -->
         <section class="section-white">
-            <div class="container">
+            <div class="container carousel-container">
 
                 <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
                     <!-- Indicators -->
@@ -151,21 +151,6 @@
         $(document).ready(function() {
             $(function () {
                 $('[data-toggle="popover"]').popover()
-            });
-
-            // special thanks to http://jsfiddle.net/5Pbwf/ from...
-            // http://stackoverflow.com/questions/12295869/jquery-animation-cascade
-
-            $("#linguetta_next div").css({
-                right: -800,
-                position: "relative"
-            }).each(function(i) {
-                var el = $(this);
-                setTimeout(function() {
-                    el.animate({
-                        right: 0
-                    }, 1000);
-                }, i * 250);
             });
         } );
 
