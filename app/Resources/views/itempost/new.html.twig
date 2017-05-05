@@ -6,8 +6,8 @@
 
         {{ form_start(form) }}
         {{ form_widget(form) }}
-        <a class="form-link" href="{{ path('itempost_index') }}">Cancel</a>
-        <button type="submit" class="btn btn-primary" formnovalidate>
+        <a class="btn btn-danger" href="{{ path('itempost_index') }}">Cancel</a>
+        <button type="submit" class="btn btn-primary btn-form-rightside"formnovalidate>
             Create Listing
         </button>
         {{ form_end(form) }}
