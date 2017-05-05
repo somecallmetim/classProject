@@ -235,6 +235,10 @@ h1, h2, h3, h4, h5, h6, p {
         max-width: 930px;
     }
 
+    .message-container {
+        max-width: 900px;
+    }
+
     .carousel-container {
         padding-left: 0px;
     }
@@ -243,6 +247,10 @@ h1, h2, h3, h4, h5, h6, p {
         max-width: 900px;
     }
 
+}
+
+.message-body {
+    margin-left: 10px;
 }
 
 .form-container{
