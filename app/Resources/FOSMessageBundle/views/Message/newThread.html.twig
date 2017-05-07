@@ -3,13 +3,13 @@
 {% block body %}
     <div class="container">
 
-        <h2>{% trans from 'FOSMessageBundle' %}Compose New Message{% endtrans %}</h2>
+        <h2>{% trans from 'FOSMessageBundle' %}Compose Message{% endtrans %}</h2>
 
         <div class="container message-container">
             <form action="{{ url('fos_message_thread_new') }}" method="post">
                 {{ form_widget(form) }}
 
-                <button type="submit" class="btn btn-primary" formnovalidate>
+                <button type="submit" class="btn btn-primary" formnovalidate style="float: right")>
                     Send
                 </button>
             </form>
