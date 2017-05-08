@@ -77,7 +77,9 @@ class ItemPost
 
     /**
      * @Assert\All({
-     *     @Assert\Image(maxSize="10M")
+     *     @Assert\Image(
+     *     maxSize = "10M",
+     *     maxSizeMessage = "Image is too large. Maximum allowed size is 10M")
      * })
      * @Assert\Count(max = 5, maxMessage="You can only upload up to 5 photos.")
      */

@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\ItemPost;
+use AppBundle\Entity\ItemPostPhoto;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -51,6 +52,7 @@ class ItemPostController extends Controller
             $itemPost->setPostDate(new \DateTime());
             $itemPost->setUser($this->getUser());
 
+            //gets files form the form
             $files = $itemPost->getPhotoList();
 
             if ($files != null) {
@@ -134,6 +136,34 @@ class ItemPostController extends Controller
         $em->flush();
 
         return $this->redirectToRoute('itempost_index');
+    }
+
+    /**
+     * Removes file from file system
+     * Deletes photo entity
+     *
+     * @Route("/{id}/deletePhoto", name="photo_delete")
+     */
+    public function photoDeleteAction(ItemPostPhoto $itemPostPhoto, Request $request) {
+
+        $this->denyAccessUnlessGranted('edit', $itemPostPhoto->getItemPost());
+
+        //get the photo name
+        $photoName = substr_replace($itemPostPhoto->getPath(), '', 0, 23);
+
+        //builds the absolute path and removes the photo from the file system
+        unlink($this->getParameter('upload_destination') . $photoName);
+
+        //deletes photo entity and removes photo path from the database
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($itemPostPhoto);
+        $em->flush();
+
+        //refreshes the page
+        return $this->redirectToRoute('itempost_edit', array(
+            'id' => $itemPostPhoto->getItemPost()->getId()
+        ));
+
     }
 
 }
