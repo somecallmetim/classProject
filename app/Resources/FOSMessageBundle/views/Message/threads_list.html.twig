@@ -1,14 +1,14 @@
-<table>
+<table style="width:100%">
 
     <thead>
-        <tr>
-            <th>{% trans from 'FOSMessageBundle' %}subject{% endtrans %}</th>
-            <th>{% trans from 'FOSMessageBundle' %}starter{% endtrans %}</th>
-            <th>{% trans from 'FOSMessageBundle' %}startdate{% endtrans %}</th>
-            <th>{% trans from 'FOSMessageBundle' %}messages{% endtrans %}</th>
-            <th>{% trans from 'FOSMessageBundle' %}last_message{% endtrans %}</th>
-            <th>{% trans from 'FOSMessageBundle' %}actions{% endtrans %}</th>
-        </tr>
+    <tr>
+        <th>{% trans from 'FOSMessageBundle' %}Subject <t></t>{% endtrans %}</th>
+        <th>{% trans from 'FOSMessageBundle' %}Sender <t></t>{% endtrans %}</th>
+        <th>{% trans from 'FOSMessageBundle' %}Date-Time <t></t>{% endtrans %}</th>
+        <th>{% trans from 'FOSMessageBundle' %}Messages <t></t>{% endtrans %}</th>
+        <th>{% trans from 'FOSMessageBundle' %}Last Message <t></t>{% endtrans %}</th>
+        <th>{% trans from 'FOSMessageBundle' %}Actions{% endtrans %}</th>
+    </tr>
     </thead>
 
     <tbody>
@@ -22,17 +22,23 @@
                     </a>
 
                     {% if not fos_message_is_read(thread) %}
-                        ({% trans from 'FOSMessageBundle' %}new{% endtrans %})
+                        ({% trans from 'FOSMessageBundle' %}New{% endtrans %})
                     {% endif %}
                 </td>
                 <td>
-                    {{ thread.createdBy }}
+                    <a href="{{ url('fos_message_thread_view', {'threadId': thread.id}) }}">
+                        {{ thread.createdBy }}
+                    </a>
                 </td>
                 <td>
-                    {{ thread.createdAt|date }}
+                    <a href="{{ url('fos_message_thread_view', {'threadId': thread.id}) }}">
+                        {{ thread.createdAt|date }}
+                    </a>
                 </td>
                 <td>
-                    {{ thread.messages|length }}
+                    <a href="{{ url('fos_message_thread_view', {'threadId': thread.id}) }}">
+                        {{ thread.messages|length }}
+                    </a>
                 </td>
                 <td>
                     {% if thread.lastMessage %}
@@ -50,13 +56,16 @@
                     {% if fos_message_can_delete_thread(thread) %}
                         {% if fos_message_deleted_by_participant(thread) %}
                             {% set formAction %}{{ url('fos_message_thread_undelete', {'threadId': thread.id}) }}{% endset %}
-                            {% set submitValue %}{% trans from 'FOSMessageBundle' %}undelete{% endtrans %}{% endset %}
+                            {% set submitValue %}{% trans from 'FOSMessageBundle' %}Restore{% endtrans %}{% endset %}
                         {% else %}
                             {% set formAction %}{{ url('fos_message_thread_delete', {'threadId': thread.id}) }}{% endset %}
-                            {% set submitValue %}{% trans from 'FOSMessageBundle' %}delete{% endtrans %}{% endset %}
+                            {% set submitValue %}{% trans from 'FOSMessageBundle' %}
+                                <img src="C:/Users/jeffreyhu/PhpstormProjects/classProject/app/Resources/FOSMessageBundle/views/Message/Trashcan.png" width = 20, height = 20>
+                                {% endtrans %}
+                            {% endset %}
                         {% endif %}
                         <form action="{{ formAction }}" method="post">
-                                <input type="submit" value="{{ submitValue }}" />
+                            <input type="submit" value="{{ submitValue }}" />
                         </form>
                     {% endif %}
                 </td>
