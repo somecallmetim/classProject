@@ -24,13 +24,17 @@
                 </div>
             {% endfor %}
 
-
-            <h3>{% trans from 'FOSMessageBundle' %}reply{% endtrans %}</h3>
+            <h3>{% trans from 'FOSMessageBundle' %}Reply{% endtrans %}</h3>
 
             <form action="{{ url('fos_message_thread_view', {'threadId': thread.id}) }}" method="post">
                 {{ form_widget(form) }}
 
-                <input type="submit" />
+                <button type="submit" class="btn btn-primary btn-float-right" formnovalidate)>
+                    Send
+                </button>
+                <a class="btn btn-danger btn-float-right-margin" href="{{ path('fos_message_inbox') }}">
+                    Cancel
+                </a>
             </form>
         </div>
     </div>
