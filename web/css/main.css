@@ -232,8 +232,26 @@ h1, h2, h3, h4, h5, h6, p {
 @media screen and (min-width: 992px) {
 
     .container {
-        padding-left: 0px;
         max-width: 930px;
     }
 
+    .carousel-container {
+        padding-left: 0px;
+    }
+
+    .carousel-inner{
+        max-width: 900px;
+    }
+
 }
+
+.form-container{
+    width: 55%;
+}
+
+.required:after {
+    color: orangered;
+    content: " *";
+}
+
+
