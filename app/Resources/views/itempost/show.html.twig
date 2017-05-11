@@ -28,7 +28,16 @@
             </tr>
             <tr>
                 <th>Photo</th>
-                <td>{{ itemPost.photo }}</td>
+                <td>
+                    {% for photo in itemPost.photos %}
+                        <a href="{{ asset(photo.path) }}">
+                            <img class="ItemPostPhoto" src="{{ asset(photo.path) }}" style="width:200px;;border:0;">
+                        </a>
+                    {% endfor %}
+
+                </td>
+
+
             </tr>
             </tbody>
         </table>

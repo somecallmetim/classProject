@@ -78,6 +78,7 @@ h1 small {
 
 .navbar
 {
+    margin-top:20px;
     margin-bottom: 0;
 }
 
@@ -139,7 +140,7 @@ h1, h2, h3, h4, h5, h6, p {
 
 .btn-primary {
     color: rgb(213, 166, 13);
-    background-color: rgb(21, 20, 91);;
+    background-color: rgb(21, 20, 91);
 }
 
 .btn-primary:hover {
@@ -235,6 +236,10 @@ h1, h2, h3, h4, h5, h6, p {
         max-width: 930px;
     }
 
+    .message-container {
+        max-width: 900px;
+    }
+
     .carousel-container {
         padding-left: 0px;
     }
@@ -245,6 +250,10 @@ h1, h2, h3, h4, h5, h6, p {
 
 }
 
+.message-body {
+    margin-left: 10px;
+}
+
 .form-container{
     width: 55%;
 }
@@ -253,5 +262,26 @@ h1, h2, h3, h4, h5, h6, p {
     color: orangered;
     content: " *";
 }
+.watermark
+{
+    position:fixed;
+    left: 0;
+    font-style: oblique;
+    text-align: center;
+    top: 0;
+    z-index:200;
+    color:black;
+    width: 100%;
+    color: black;
+}
 
+.btn-float-right{
+    color: rgb(213, 166, 13);
+    background-color: rgb(21, 20, 91);
+    float: right;
+}
 
+.btn-float-right-margin{
+    float: right;
+    margin: 0 1.5%;
+}
