@@ -7,7 +7,7 @@
         {{ form_start(edit_form) }}
         {{ form_widget(edit_form) }}
         <button type="submit" class="btn btn-primary" formnovalidate>Submit</button>
-        <a type="form-link" class="btn btn-danger" href="{{ path('itempost_delete', { 'id': itemPost.id }) }}">Delete</a>
+        <a class="btn btn-danger" href="{{ path('itempost_delete', { 'id': itemPost.id }) }}">Delete</a>
         {{ form_end(edit_form) }}
         <hr>
         <h3>Manage Photos</h3>
