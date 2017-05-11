@@ -15,6 +15,7 @@ class ItemPostRepository extends \Doctrine\ORM\EntityRepository
     public function findAllItemsByUser(User $user){
         return $this->createQueryBuilder('item_post')
             ->andWhere('item_post.user = :user')
+            ->orderBy('item_post.postDate', 'DESC')
             ->setParameter('user', $user)
             ->getQuery()
             ->execute();
