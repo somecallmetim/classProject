@@ -19,4 +19,11 @@ class ItemPostRepository extends \Doctrine\ORM\EntityRepository
             ->getQuery()
             ->execute();
     }
+
+    public function findAllAndSortByDate(){
+        return $this->createQueryBuilder('item_post')
+            ->orderBy('item_post.postDate', 'DESC')
+            ->getQuery()
+            ->execute();
+    }
 }
