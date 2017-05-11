@@ -112,6 +112,23 @@ class ItemPostController extends Controller
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
+            $files = $itemPost->getPhotoList();
+
+            if ($files != null) {
+                foreach($files as $file) {
+                    // Generate a unique name for the file before saving it
+                    $fileName = md5(uniqid()) . '.' . $file->guessExtension();
+                    // Move the file to the correct folder
+                    $file->move(
+                        $this->getParameter('upload_destination'),
+                        $fileName
+                    );
+
+                    //stores path to file into database
+                    $itemPost->addPhoto('/images/ItemPostPhotos/' . $fileName);
+                }
+            }
+
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('itempost_index', array('id' => $itemPost->getId()));
