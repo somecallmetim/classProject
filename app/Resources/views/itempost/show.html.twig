@@ -47,7 +47,7 @@
         {% if itemPost.user  == app.user  %}
             <a class="btn btn-primary" href="{{ path('itempost_edit', { 'id': itemPost.id }) }}">Edit</a>
         {% else %}
-            <button class="btn btn-primary" href="{{ path('fos_message_thread_contact_seller', { 'id': itemPost.id }) }}">Contact Seller</button>
+            <a class="btn btn-primary" href="{{ path('fos_message_thread_contact_seller', { 'id': itemPost.id }) }}">Contact Seller</a>
             {#<a class="form-link" href="{{ path('fos_message_thread_contact_seller', { 'id': itemPost.id }) }}">Delete</a>#}
         {% endif %}
 
