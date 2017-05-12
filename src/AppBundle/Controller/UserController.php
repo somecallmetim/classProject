@@ -1,12 +1,4 @@
 <?php
-use AppBundle\Entity\User;
-
-/**
- * Created by PhpStorm.
- * User: timbauer
- * Date: 12/9/16
- * Time: 1:04 AM
- */
 
 namespace AppBundle\Controller;
 
