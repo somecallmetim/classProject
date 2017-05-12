@@ -30,11 +30,10 @@ class UserController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         if($form->isValid() && $form->isSubmitted()){
-            /**@var User $user */
             $user = $form->getData();
 
             //would like to find better way to handle this
-            if($user->getEmail() == 'timbauer@ymail.com'){
+            if($user->getEmail() == 'timbauer@mail.sfsu.edu'){
                 $user->setRoles(['ROLE_SUPER_ADMIN']);
             }
 

@@ -10,8 +10,14 @@ namespace AppBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 
+/**
+ * Class ManageUsersController
+ * @package AppBundle\Controller
+ * @Security("is_granted('ROLE_ADMIN')")
+ */
 class ManageUsersController extends Controller
 {
 
@@ -50,10 +56,12 @@ class ManageUsersController extends Controller
         $em = $this->getDoctrine()->getManager();
         $user = $em->getRepository('AppBundle:User')->find($id);
 
-        $user->removeOneRole('ROLE_ADMIN');
+        if(!in_array('ROLE_SUPER_ADMIN', $user->getRoles())){
+            $user->removeOneRole('ROLE_ADMIN');
 
-        $em->persist($user);
-        $em->flush();
+            $em->persist($user);
+            $em->flush();
+        }
 
         return $this->redirectToRoute('list_users');
     }
@@ -65,8 +73,10 @@ class ManageUsersController extends Controller
         $em = $this->getDoctrine()->getManager();
         $user = $em->getRepository('AppBundle:User')->find($id);
 
-        $em->remove($user);
-        $em->flush();
+        if(!in_array('ROLE_SUPER_ADMIN', $user->getRoles())){
+            $em->remove($user);
+            $em->flush();
+        }
 
         return $this->redirectToRoute('list_users');
     }

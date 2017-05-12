@@ -67,7 +67,11 @@
             <tbody>
             {% for itemPost in itemPosts %}
                 <tr class="itemPost" data-category="{{ itemPost.category }}" data-searchable="true">
+                {% if is_granted('ROLE_SUPER_ADMIN')  or is_granted('ROLE_ADMIN') %}
+                    <td><a href="{{ path('itempost_delete', {'id': itemPost.id}) }}"><span class="fa fa-close" style="color: red"></span></a></td>
+                {% else %}
                     <td></td>
+                {% endif %}
                     <td><a id="itemName" href="{{ path('itempost_show', { 'id': itemPost.id }) }}">{{ itemPost.name }}</a></td>
                     <td>${{ itemPost.price|number_format(2) }}</td>
                     <td>

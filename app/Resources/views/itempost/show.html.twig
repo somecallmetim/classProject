@@ -36,8 +36,6 @@
                     {% endfor %}
 
                 </td>
-
-
             </tr>
             </tbody>
         </table>
@@ -46,9 +44,10 @@
 
         {% if itemPost.user  == app.user  %}
             <a class="btn btn-primary" href="{{ path('itempost_edit', { 'id': itemPost.id }) }}">Edit</a>
+        {% elseif is_granted('ROLE_SUPER_ADMIN')  or is_granted('ROLE_ADMIN') %}
+            <a class="btn btn-danger" href="{{ path('itempost_delete', { 'id': itemPost.id}) }}">Delete</a>
         {% else %}
             <a class="btn btn-primary" href="{{ path('fos_message_thread_contact_seller', { 'id': itemPost.id }) }}">Contact Seller</a>
-            {#<a class="form-link" href="{{ path('fos_message_thread_contact_seller', { 'id': itemPost.id }) }}">Delete</a>#}
         {% endif %}
 
 
