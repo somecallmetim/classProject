@@ -17,6 +17,9 @@
                 {{ form_row(form.plainPassword.second, {
                     'label': 'Repeat Password'
                 }) }}
+
+                <div class="g-recaptcha" data-sitekey="6LepECEUAAAAAKZD6b8b-tebHvUS_kQpiXP92cpf"></div>
+
                 <a href="https://termsfeed.com/terms-service/2f805086c3002ea1b07084f032c3bc5e">Terms of service</a>
                 {{ form_row(form.IHaveReadAndAcceptTheTermsOfService) }}
 
@@ -26,9 +29,10 @@
                     Register
                 </button>
 
-                <br></br>
+                <br>
 
-                <p><a href="https://termsfeed.com/privacy-policy/c455b06cbdd957a654630e5cd5ef93b6">Privacy Policy</a>
+                <p><a href="https://termsfeed.com/privacy-policy/c455b06cbdd957a654630e5cd5ef93b6">Privacy Policy</a></p>
+
 
 
                 {{ form_end(form) }}
@@ -37,4 +41,10 @@
         </div>
     </div>
 
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script src='https://www.google.com/recaptcha/api.js'></script>
 {% endblock %}

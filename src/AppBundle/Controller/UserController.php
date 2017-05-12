@@ -29,7 +29,7 @@ class UserController extends Controller
 
         $em = $this->getDoctrine()->getManager();
 
-        if($form->isValid() && $form->isSubmitted()){
+        if($form->isValid() && $form->isSubmitted() && $this->captchaverify($request->get('g-recaptcha-response'))){
             $user = $form->getData();
 
             //would like to find better way to handle this
@@ -50,8 +50,33 @@ class UserController extends Controller
                 );
         }
 
+        if($form->isSubmitted() &&  $form->isValid() && !$this->captchaverify($request->get('g-recaptcha-response'))){
+
+            $this->addFlash(
+                'error',
+                'Captcha Require'
+            );
+        }
+
         return $this->render('user/register.html.twig', [
             'form' => $form->createView()
         ]);
+    }
+
+    # get success response from recaptcha and return it to controller
+    function captchaverify($recaptcha){
+        $url = "https://www.google.com/recaptcha/api/siteverify";
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_HEADER, 0);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, array(
+            "secret"=>"6LepECEUAAAAALFBRAm5j0IU5IQ_mCjbxDQwEffW", "response"=>$recaptcha));
+        $response = curl_exec($ch);
+        curl_close($ch);
+        $data = json_decode($response);
+
+        return $data->success;
     }
 }
