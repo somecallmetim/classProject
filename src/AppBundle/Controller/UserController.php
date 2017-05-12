@@ -1,12 +1,4 @@
 <?php
-use AppBundle\Entity\User;
-
-/**
- * Created by PhpStorm.
- * User: timbauer
- * Date: 12/9/16
- * Time: 1:04 AM
- */
 
 namespace AppBundle\Controller;
 
@@ -29,34 +21,34 @@ class UserController extends Controller
 
         $em = $this->getDoctrine()->getManager();
 
-        if($form->isValid() && $form->isSubmitted() && $this->captchaverify($request->get('g-recaptcha-response'))){
-            $user = $form->getData();
+        if($form->isValid() && $form->isSubmitted()){
+            if($this->captchaVerify($request->get('g-recaptcha-response'))){
+                $user = $form->getData();
 
-            //would like to find better way to handle this
-            if($user->getEmail() == 'timbauer@mail.sfsu.edu'){
-                $user->setRoles(['ROLE_SUPER_ADMIN']);
-            }
+                //would like to find better way to handle this
+                if($user->getEmail() == 'timbauer@mail.sfsu.edu'){
+                    $user->setRoles(['ROLE_SUPER_ADMIN']);
+                }
 
-            $em->persist($user);
-            $em->flush();
+                $em->persist($user);
+                $em->flush();
 
-            $this->addFlash('success', 'Welcome '.$user->getUsername());
-            return $this->get('security.authentication.guard_handler')
-                ->authenticateUserAndHandleSuccess(
-                    $user,
-                    $request,
-                    $this->get('app.security.login_form_authenticator'),
-                    'main'
+                $this->addFlash('success', 'Welcome '.$user->getUsername());
+                return $this->get('security.authentication.guard_handler')
+                    ->authenticateUserAndHandleSuccess(
+                        $user,
+                        $request,
+                        $this->get('app.security.login_form_authenticator'),
+                        'main'
+                    );
+            } else {
+                $this->addFlash(
+                    'error',
+                    'Captcha Require'
                 );
+            }
         }
 
-        if($form->isSubmitted() &&  $form->isValid() && !$this->captchaverify($request->get('g-recaptcha-response'))){
-
-            $this->addFlash(
-                'error',
-                'Captcha Require'
-            );
-        }
 
         return $this->render('user/register.html.twig', [
             'form' => $form->createView()
@@ -64,7 +56,7 @@ class UserController extends Controller
     }
 
     # get success response from recaptcha and return it to controller
-    function captchaverify($recaptcha){
+    function captchaVerify($recaptcha){
         $url = "https://www.google.com/recaptcha/api/siteverify";
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
