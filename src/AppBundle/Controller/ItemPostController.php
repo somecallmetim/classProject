@@ -27,7 +27,7 @@ class ItemPostController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $itemPosts = $em->getRepository('AppBundle:ItemPost')->findAll();
+        $itemPosts = $em->getRepository('AppBundle:ItemPost')->findAllAndSortByDate();
 
         return $this->render('itempost/index.html.twig', array(
             'itemPosts' => $itemPosts

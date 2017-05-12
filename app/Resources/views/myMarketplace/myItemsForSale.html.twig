@@ -7,8 +7,9 @@
             <thead>
             <tr>
                 <th></th>
-                <th>Name</th>
+                <th>Item Name</th>
                 <th>Price</th>
+                <th>Date Posted</th>
                 <th>Category</th>
 
             </tr>
@@ -19,6 +20,7 @@
                     <td><a href="{{ path('itempost_delete', {'id': itemPost.id}) }}"><span class="fa fa-close" style="color: red"></span></a></td>
                     <td><a href="{{ path('itempost_show', { 'id': itemPost.id }) }}">{{ itemPost.name }}</a></td>
                     <td>${{ itemPost.price|number_format(2) }}</td>
+                    <td>{{ itemPost.postDate|date("m/d/Y") }}</td>
                     <td>{{ itemPost.category }}</td>
                 </tr>
             {% endfor %}
