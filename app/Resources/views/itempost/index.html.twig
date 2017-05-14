@@ -146,7 +146,6 @@
                     $('#no-result').hide();
                     $('tr.itemPost').each(function () {
                         if (category === 'all' || $(this).data('category') === category) {
-                            console.log('filter is empty');
                             $(this).show();
                         }
                     });
