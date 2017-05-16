@@ -89,9 +89,6 @@ class ItemPostController extends Controller
      */
     public function showAction(ItemPost $itemPost)
     {
-       
-
-
         return $this->render('itempost/show.html.twig', array(
             'itemPost' => $itemPost,
         ));
@@ -133,6 +130,9 @@ class ItemPostController extends Controller
 
             return $this->redirectToRoute('itempost_index', array('id' => $itemPost->getId()));
         }
+
+        //refreshes itemPost entity from database to prevent from displaying stale images
+        $this->getDoctrine()->getManager()->refresh($itemPost);
 
         return $this->render('itempost/edit.html.twig', array(
             'itemPost' => $itemPost,
