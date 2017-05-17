@@ -20,6 +20,7 @@
 
 <div class="container">
     {% block navbar %}
+        <div class ="watermark"> THIS IS FOR SFSU CSC 648 DEMONSTRATION ONLY!</div>
         <nav class="navbar navbar-inverse">
             <div class="container-fluid">
                 <!-- Brand and toggle get grouped for better mobile display -->
@@ -30,7 +31,6 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <div class ="watermark"> THIS IS FOR SFSU CSC 648 DEMONSTRATION ONLY!</div>
                 </div>
 
                 <!-- Collect the nav links, forms, and other content for toggling -->
@@ -110,25 +110,27 @@
                         <li data-target="#carousel-example-generic" data-slide-to="1"></li>
                         <li data-target="#carousel-example-generic" data-slide-to="2"></li>
                     </ol>
-
                     <!-- Wrapper for slides -->
                     <div class="carousel-inner">
                         <div class="item active">
-                            <img src="https://i0.wp.com/jameshoward.us/wp-content/uploads/2017/02/textbook-pricing-control.jpg?resize=800%2C400&ssl=1" alt="...">
+                            <a href="{{ path('itempost_index') }}/?category=Textbooks">
+                                <img src="https://i0.wp.com/jameshoward.us/wp-content/uploads/2017/02/textbook-pricing-control.jpg?resize=800%2C400&ssl=1"
+                                     alt="Textbooks">
+                            </a>
                             <div class="carousel-caption">
-                                <h2>Textbooks</h2>
+                                <h2><a href="{{ path('itempost_index') }}/?category=Textbooks">Textbooks</a></h2>
                             </div>
                         </div>
                         <div class="item">
-                            <img src="https://i2.wp.com/trendyzip.com/wp-content/uploads/2017/01/Xiaomi-Mi-Notebook-Air-China-review-main.jpg?fit=800%2C400" alt="...">
+                            <a href="{{ path('itempost_index') }}/?category=Laptops"><img src="https://i2.wp.com/trendyzip.com/wp-content/uploads/2017/01/Xiaomi-Mi-Notebook-Air-China-review-main.jpg?fit=800%2C400" alt="Laptops"></a>
                             <div class="carousel-caption">
-                                <h2>Laptops</h2>
+                                <h2><a href="{{ path('itempost_index') }}/?category=Laptops">Laptops</a></h2>
                             </div>
                         </div>
                         <div class="item">
-                            <img src="https://www.westwindhardwood.com/wp-content/uploads/2016/08/DSC_0139-800x400.jpg" alt="...">
+                            <a href="{{ path('itempost_index') }}/?category=Furniture"><img src="https://www.westwindhardwood.com/wp-content/uploads/2016/08/DSC_0139-800x400.jpg" alt="Furniture"></a>
                             <div class="carousel-caption">
-                                <h2>Furniture</h2>
+                                <h2><a href="{{ path('itempost_index') }}/?category=Furniture">Furniture</a></h2>
                             </div>
                         </div>
                     </div>
