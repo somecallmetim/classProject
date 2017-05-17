@@ -283,3 +283,8 @@ h1, h2, h3, h4, h5, h6, p {
     float: right;
     margin: 0 1.5%;
 }
+
+#no-result{
+    text-align: center;
+    font-size: xx-large;
+}
