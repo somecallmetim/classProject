@@ -121,9 +121,10 @@
                 }
             });
 
-            {% if cat %}
-            $("#{{ cat }}").click();
+            {% if category %}
+                $("#{{ category }}").click();
             {% endif  %}
+
             $('#searchInputBox').keyup(function (e) {
 
                 // Declare variables

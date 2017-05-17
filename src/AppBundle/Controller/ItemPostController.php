@@ -25,14 +25,14 @@ class ItemPostController extends Controller
      */
     public function indexAction(Request $request)
     {
-        $cat = $request->get("cat");
+        $category = $request->get("category");
         $em = $this->getDoctrine()->getManager();
 
         $itemPosts = $em->getRepository('AppBundle:ItemPost')->findAllAndSortByDate();
 
         return $this->render('itempost/index.html.twig', array(
             'itemPosts' => $itemPosts,
-            'cat'=>$cat
+            'category'=>$category
         ));
     }
 
