@@ -13,19 +13,19 @@
         <h3>Manage Photos</h3>
         <div>
             {% for photo in itemPost.photos %}
-            <span class="pdf-thumb-box"> <a href= "{{ path('photo_delete', {'id': photo.id}) }}">
-                <span class="pdf-thumb-box-overlay">
-                    <span class="fa-stack fa-lg">
-                        <i class="fa fa-trash-o fa-stack-1x pdf-thumb-eye"></i>
-                    </span>
+                <span class="pdf-thumb-box">
+                    <a href= "{{ path('photo_delete', {'id': photo.id}) }}">
+                        <span class="pdf-thumb-box-overlay">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-trash-o fa-stack-1x pdf-thumb-eye"></i>
+                            </span>
+                        </span>
+                        <img class="img-responsive" src="{{ asset(photo.path) }}" style="width:200px;border:0;">
+                    </a>
                 </span>
-                <img class="img-responsive" src="{{ asset(photo.path) }}" style="width:200px;border:0;">
-            </a>
-        </span>
-        <span class="vertical-social-box"></span>
-                {#<img class="ItemPostPhoto" src="{{ asset(photo.path) }}" style="width:100px;;border:0;">#}
-                {#<a href="{{ path('photo_delete', {'id': photo.id}) }}"><span class="fa fa-close" style="color: red"></span></a>#}
-             {% endfor %}
+
+                <span class="vertical-social-box"></span>
+            {% endfor %}
         </div>
         <br>
 {% endblock %}
