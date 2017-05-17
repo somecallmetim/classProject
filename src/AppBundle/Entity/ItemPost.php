@@ -2,12 +2,10 @@
 
 namespace AppBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-
-use Symfony\Component\Validator\Constraints as Assert;
-use AppBundle\Entity\User;
+use AppBundle\Validator\Constraints as AcmeAssert;
 use Doctrine\Common\Collections\ArrayCollection;
-use Symfony\Component\HttpFoundation\File\File;
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * ItemPost
@@ -81,7 +79,7 @@ class ItemPost
      *     maxSize = "10M",
      *     maxSizeMessage = "Image is too large. Maximum allowed size is 10M")
      * })
-     * @Assert\Count(max = 5, maxMessage="You can only upload up to 5 photos.")
+     * @AcmeAssert\MaxPhotoConstraint
      */
     private $photoList;
 
