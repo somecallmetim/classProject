@@ -23,10 +23,10 @@
                            aria-haspopup="true" aria-expanded="false">Choose a Category <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li><a href="#">TV's, Tablets, Entertainment</a></li>
-                            <li><a href="#">Furnishings</a></li>
-                            <li><a href="#">Laptops</a></li>
+                            <li><a id ="Furniture" href="#">Furnishings</a></li>
+                            <li><a id ="Laptops" href="#">Laptops</a></li>
                             <li role="separator" class="divider"></li>
-                            <li><a href="#">Text Books</a></li>
+                            <li><a id ="Textbooks" href="#">Text Books</a></li>
                             <li><a href="#">School Supplies</a></li>
                             <li role="separator" class="divider"></li>
                             <li><a href="#">Tutoring Services</a></li>
@@ -123,6 +123,9 @@
                 }
             });
 
+            {% if category %}
+                $("#{{ category }}").click();
+            {% endif  %}
 
             $('#searchInputBox').keyup(function (e) {
 
