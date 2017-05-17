@@ -54,6 +54,7 @@
         <table id="js-item-post-table" class="table table-responsive">
             <thead>
             <tr>
+                <th>Photo</th>
                 <th></th>
                 <th>Item Name</th>
                 <th>Price</th>
@@ -67,7 +68,13 @@
             <tbody>
             {% for itemPost in itemPosts %}
                 <tr class="itemPost" data-category="{{ itemPost.category }}" data-searchable="true">
-                {% if is_granted('ROLE_SUPER_ADMIN')  or is_granted('ROLE_ADMIN') %}
+                   <td>{% for photo in itemPost.photos |slice(0,1) %}
+                            <a href="{{ path('itempost_show', { 'id': itemPost.id }) }}">
+                                <img class="ItemPostPhoto" src="{{ asset(photo.path) }}" style="width:150px;border:0;">
+                            </a>
+                        {% endfor %}</td>
+
+                    {% if is_granted('ROLE_SUPER_ADMIN')  or is_granted('ROLE_ADMIN') %}
                     <td><a href="{{ path('itempost_delete', {'id': itemPost.id}) }}"><span class="fa fa-close" style="color: red"></span></a></td>
                 {% else %}
                     <td></td>
