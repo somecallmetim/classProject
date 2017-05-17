@@ -181,7 +181,7 @@ h1, h2, h3, h4, h5, h6, p {
 }
 
 .carousel-caption {
-    background-color: rgba(128,0,128, .7);
+    background-color: rgba(128, 0, 128, .7);
     position: absolute;
     left: 0;
     right: 0;
@@ -191,6 +191,12 @@ h1, h2, h3, h4, h5, h6, p {
     color: #fff;
     text-align: center;
 }
+
+.carousel-caption a{
+    text-decoration: none;
+    color: white;
+}
+
 
 .carousel-indicators {
     position: absolute;
@@ -261,8 +267,7 @@ h1, h2, h3, h4, h5, h6, p {
     color: orangered;
     content: " *";
 }
-.watermark
-{
+.watermark {
     position:fixed;
     left: 0;
     font-style: oblique;
@@ -326,3 +331,7 @@ h1, h2, h3, h4, h5, h6, p {
     top: 0; left: 0; bottom: 0; right: 0
 }
 
+#no-result{
+    text-align: center;
+    font-size: xx-large;
+}

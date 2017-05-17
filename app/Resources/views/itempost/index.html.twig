@@ -23,10 +23,10 @@
                            aria-haspopup="true" aria-expanded="false">Choose a Category <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li><a href="#">TV's, Tablets, Entertainment</a></li>
-                            <li><a href="#">Furnishings</a></li>
-                            <li><a href="#">Laptops</a></li>
+                            <li><a id ="Furniture" href="#">Furnishings</a></li>
+                            <li><a id ="Laptops" href="#">Laptops</a></li>
                             <li role="separator" class="divider"></li>
-                            <li><a href="#">Text Books</a></li>
+                            <li><a id ="Textbooks" href="#">Text Books</a></li>
                             <li><a href="#">School Supplies</a></li>
                             <li role="separator" class="divider"></li>
                             <li><a href="#">Tutoring Services</a></li>
@@ -64,6 +64,9 @@
 
             </tr>
             </thead>
+
+            <p id="no-result" hidden>No result found. Please try different keywords.</p>
+
             <tbody>
             {% for itemPost in itemPosts %}
                 <tr class="itemPost" data-category="{{ itemPost.category }}" data-searchable="true">
@@ -94,7 +97,6 @@
     {{ parent() }}
     <script>
         $(document).ready(function() {
-//            document.addEventListener('keypress', )
             var linkId = "#itempost";
             var $table = $('#js-item-post-table');
 
@@ -121,6 +123,9 @@
                 }
             });
 
+            {% if category %}
+                $("#{{ category }}").click();
+            {% endif  %}
 
             $('#searchInputBox').keyup(function (e) {
 
@@ -132,6 +137,7 @@
                 tr = table.getElementsByTagName("tr");
                 termFoundInItemName = false;
                 termFoundInDescription = false;
+                var matchCount = 0;
 
                 category = $('#selectedCategory').text().trim();
                 if (category === "Choose a Category" || category === "All Items") {
@@ -139,6 +145,8 @@
                 }
 
                 if(filter.trim() === "") {
+                    $table.show();
+                    $('#no-result').hide();
                     $('tr.itemPost').each(function () {
                         if (category === 'all' || $(this).data('category') === category) {
                             $(this).show();
@@ -148,7 +156,7 @@
                     i=1;
                     $('tr.itemPost').each(function () {
                         var td_name = tr[i].getElementsByTagName("td")[1];
-                        var td_description = tr[i].getElementsByTagName("td")[4];
+                        var td_description = tr[i].getElementsByTagName("td")[6];
 
                         td_name = $(td_name).text();
                         td_description = $(td_description).text();
@@ -157,12 +165,13 @@
                             if (td_name) {
                                 if (td_name.toLowerCase().search(filter) > -1) {
                                     termFoundInItemName = true;
+                                    matchCount++;
                                 } else {
-
                                     termFoundInItemName = false;
                                 }
                                 if (td_description.toLowerCase().search(filter) > -1) {
                                     termFoundInDescription = true;
+                                    matchCount++;
                                 } else {
                                     termFoundInDescription = false;
                                 }
@@ -175,26 +184,36 @@
                             }
                         }
                         i++;
+
+                        if(matchCount === 0){
+                            $table.hide();
+                            $('#no-result').show();
+                        }
+                        else{
+                            $table.show();
+                            $('#no-result').hide();
+                        }
                     });
                 } else{
                     i=1;
                     $('tr.itemPost').each(function () {
                         var td_name = tr[i].getElementsByTagName("td")[1];
-                        var td_description = tr[i].getElementsByTagName("td")[4];
+                        var td_description = tr[i].getElementsByTagName("td")[6];
 
                         td_name = $(td_name).text();
                         td_description = $(td_description).text();
 
-                        if($(this).is(":visible")) {
+                        if(category === 'all' || $(this).data('category') === category) {
                             if (td_name) {
                                 if (td_name.toLowerCase().search(filter) > -1) {
                                     termFoundInItemName = true;
+                                    matchCount++;
                                 } else {
-
                                     termFoundInItemName = false;
                                 }
                                 if (td_description.toLowerCase().search(filter) > -1) {
                                     termFoundInDescription = true;
+                                    matchCount++;
                                 } else {
                                     termFoundInDescription = false;
                                 }
@@ -207,6 +226,15 @@
                             }
                         }
                         i++;
+
+                        if(matchCount === 0){
+                            $table.hide();
+                            $('#no-result').show();
+                        }
+                        else{
+                            $table.show();
+                            $('#no-result').hide();
+                        }
                     });
                 }
             });
