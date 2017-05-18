@@ -2,7 +2,7 @@
 
 namespace AppBundle\Entity;
 
-use AppBundle\Validator\Constraints as AcmeAssert;
+use AppBundle\Validator\Constraints as MaxPhotoConstraint;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -79,7 +79,7 @@ class ItemPost
      *     maxSize = "10M",
      *     maxSizeMessage = "Image is too large. Maximum allowed size is 10M")
      * })
-     * @AcmeAssert\MaxPhotoConstraint
+     * @MaxPhotoConstraint\MaxPhotoConstraint
      */
     private $photoList;
 
