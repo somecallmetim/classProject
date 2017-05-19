@@ -19,7 +19,6 @@ use Doctrine\ORM\Mapping as ORM;
 
 class ItemBookmark
 {
-
     /**
      * @var int
      *
