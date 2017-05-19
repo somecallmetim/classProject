@@ -30,6 +30,11 @@ class ItemPost
     private $user;
 
     /**
+     * @ORM\OneToMany(targetEntity="ItemBookmark", mappedBy="user", orphanRemoval=false)
+     */
+    private $bookmarks;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255)

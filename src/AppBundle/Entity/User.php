@@ -66,6 +66,10 @@ class User implements UserInterface, ParticipantInterface
      */
     private $itemposts;
 
+    /**
+     * @ORM\OneToMany(targetEntity="ItemBookmark", mappedBy="user", orphanRemoval=true)
+     */
+    private $bookmarks;
 
     public function getId()
     {
