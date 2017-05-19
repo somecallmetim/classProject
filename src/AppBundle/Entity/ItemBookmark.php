@@ -14,7 +14,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Class ItemBookmark
  *
  * @ORM\Table(name="bookmarks")
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\ItemBookmarkRepository")
  */
 
 class ItemBookmark
@@ -44,14 +44,6 @@ class ItemBookmark
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * @param int $id
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
     }
 
     /**

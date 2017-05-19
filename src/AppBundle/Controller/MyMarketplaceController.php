@@ -33,10 +33,10 @@ class MyMarketplaceController extends Controller
     public function myBookmarksAction(){
         $em = $this->getDoctrine()->getManager();
 
-        $itemPosts = $em->getRepository('AppBundle:ItemPost')->findAllItemsByUser($this->getUser());
+        $myBookmarks = $em->getRepository('AppBundle:ItemBookmark')->findAllBookmarksByUser($this->getUser());
 
         return $this->render('myMarketplace/myBookmarkedItems.html.twig', [
-            'itemPosts' => $itemPosts
+            'myBookmarks' => $myBookmarks
         ]);
     }
 }

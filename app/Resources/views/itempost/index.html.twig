@@ -71,7 +71,7 @@
             <tbody>
             {% for itemPost in itemPosts %}
                 <tr class="itemPost" data-category="{{ itemPost.category }}" data-searchable="true">
-                    <td style="text-align: center"><a href="#"><span class="fa fa-bookmark"></span></a></td>
+                    <td style="text-align: center"><a href="{{ path( 'addBookmark', {'id': itemPost.id }) }}"><span class="fa fa-bookmark"></span></a></td>
                     <td><a id="itemName" href="{{ path('itempost_show', { 'id': itemPost.id }) }}">{{ itemPost.name }}</a></td>
                     <td>${{ itemPost.price|number_format(2) }}</td>
                     <td>
