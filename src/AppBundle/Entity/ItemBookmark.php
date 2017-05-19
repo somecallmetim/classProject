@@ -29,12 +29,12 @@ class ItemBookmark
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="User", inversedBy="")
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="bookmarks")
      */
     private $user;
 
     /**
-     * @ORM\ManyToOne(targetEntity="ItemPost", inversedBy="")
+     * @ORM\ManyToOne(targetEntity="ItemPost", inversedBy="bookmarks")
      */
     private $itemPost;
 

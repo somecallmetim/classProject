@@ -92,6 +92,15 @@ class ItemPost
     {
         $this->photos = new ArrayCollection();
         $this->photoList = new ArrayCollection();
+        $this->bookmarks = new ArrayCollection();
+    }
+
+    /**
+     * @return ArrayCollection|ItemBookmark[]
+     */
+    public function getBookmarks()
+    {
+        return $this->bookmarks;
     }
 
     /**
