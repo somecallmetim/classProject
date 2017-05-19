@@ -24,7 +24,7 @@
                         </a>
                     </li>
                     <li>
-                        <a id="my-bookmarked-items" class="js-toggle-active" href="{{ path('myBookmarks') }}">
+                        <a id="my-bookmarked-items" class="js-toggle-active" href="#">
                             My Bookmarked Items
                             <span class="sr-only">(current)</span>
                         </a>
@@ -76,7 +76,7 @@
             $(linkId).parent().addClass('active');
             $(linkId).parent().siblings().removeClass('active');
 
-            var linkId = "my-items-for-sale";
+            var linkId = "#my-bookmarked-items";
             $(linkId).parent().addClass('active');
             $(linkId).parent().siblings().removeClass('active');
         } );

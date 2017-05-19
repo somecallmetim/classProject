@@ -26,4 +26,17 @@ class MyMarketplaceController extends Controller
             'itemPosts' => $itemPosts
         ]);
     }
+
+    /**
+     * @Route("/myBookmarks", name="myBookmarks")
+     */
+    public function myBookmarksAction(){
+        $em = $this->getDoctrine()->getManager();
+
+        $itemPosts = $em->getRepository('AppBundle:ItemPost')->findAllItemsByUser($this->getUser());
+
+        return $this->render('myMarketplace/myBookmarkedItems.html.twig', [
+            'itemPosts' => $itemPosts
+        ]);
+    }
 }
