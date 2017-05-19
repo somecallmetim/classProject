@@ -30,6 +30,8 @@ class BookmarksController extends Controller
         $em->persist($bookmark);
         $em->flush();
 
+        $this->addFlash('success', "Congrats! You just bookmarked ".$itemPost->getName());
+
         return $this->redirectToRoute('itempost_index');
     }
 
