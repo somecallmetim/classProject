@@ -54,13 +54,14 @@
         <table id="js-item-post-table" class="table table-responsive">
             <thead>
             <tr>
-                <th></th>
+                <th>Bookmark Item</th>
                 <th>Item Name</th>
                 <th>Price</th>
                 <th></th>
                 <th>Date Posted</th>
                 <th>Category</th>
                 <th style="display: none">Description</th>
+                <th></th>
 
             </tr>
             </thead>
@@ -70,11 +71,7 @@
             <tbody>
             {% for itemPost in itemPosts %}
                 <tr class="itemPost" data-category="{{ itemPost.category }}" data-searchable="true">
-                {% if is_granted('ROLE_SUPER_ADMIN')  or is_granted('ROLE_ADMIN') %}
-                    <td><a href="{{ path('itempost_delete', {'id': itemPost.id}) }}"><span class="fa fa-close" style="color: red"></span></a></td>
-                {% else %}
-                    <td></td>
-                {% endif %}
+                    <td style="text-align: center"><a href="#"><span class="fa fa-bookmark"></span></a></td>
                     <td><a id="itemName" href="{{ path('itempost_show', { 'id': itemPost.id }) }}">{{ itemPost.name }}</a></td>
                     <td>${{ itemPost.price|number_format(2) }}</td>
                     <td>
@@ -83,6 +80,11 @@
                     <td>{{ itemPost.postDate|date("m/d/Y") }}</td>
                     <td>{{ itemPost.category }}</td>
                     <td id="itemDescription" style="display: none">{{ itemPost.description }}</td>
+                    {% if is_granted('ROLE_SUPER_ADMIN')  or is_granted('ROLE_ADMIN') %}
+                        <td><a href="{{ path('itempost_delete', {'id': itemPost.id}) }}"><span class="fa fa-close" style="color: red"></span></a></td>
+                    {% else %}
+                        <td></td>
+                    {% endif %}
                 </tr>
             {% endfor %}
             </tbody>
