@@ -280,14 +280,8 @@ h1, h2, h3, h4, h5, h6, p {
 }
 
 .btn-float-right{
-    color: rgb(213, 166, 13);
-    background-color: rgb(21, 20, 91);
     float: right;
-}
-
-.btn-float-right-margin{
-    float: right;
-    margin: 0 1.5%;
+    margin: 0 7px;
 }
 
 /* ------------------- Photo Delete Hover -------------------
