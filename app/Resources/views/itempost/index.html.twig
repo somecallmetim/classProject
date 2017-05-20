@@ -151,9 +151,9 @@
             });
 
 
-            {#{% if category %}#}
-                {#$("#{{ category }}").click();#}
-            {#{% endif  %}#}
+            {% if category %}
+                $("#{{ category }}").click();
+            {% endif  %}
 
             $('#searchInputBox').keyup(function (e) {
 
