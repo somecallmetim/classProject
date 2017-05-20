@@ -48,7 +48,9 @@
             <a class="btn btn-primary btn-float-right" href="{{ path( 'addBookmark', {'id': itemPost.id }) }}">Bookmark Item</a>
         {% else %}
             <a class="btn btn-success btn-float-right" href="{{ path('fos_message_thread_contact_seller', { 'id': itemPost.id }) }}">Contact Seller</a>
-            <a class="btn btn-primary btn-float-right" href="{{ path( 'addBookmark', {'id': itemPost.id }) }}">Bookmark Item</a>
+            {% if is_granted('ROLE_USER') %}
+                <a class="btn btn-primary btn-float-right" href="{{ path( 'addBookmark', {'id': itemPost.id }) }}">Bookmark Item</a>
+            {% endif %}
         {% endif %}
         <a class="btn btn-primary" href="{{ path('itempost_index') }}">Done</a>
 

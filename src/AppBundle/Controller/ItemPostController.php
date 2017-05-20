@@ -31,14 +31,15 @@ class ItemPostController extends Controller
 
         $itemPosts = $em->getRepository('AppBundle:ItemPost')->findAllAndSortByDate();
 
-        $bookmarks = $em->getRepository('AppBundle:ItemBookmark')->findAllBookmarksByUser($this->getUser());
-
         $bookmarkArray = [];
 
-        foreach($bookmarks as $bookmark){
-            $bookmarkArray[] = $bookmark->getItemPost()->getName();
-        }
+        if ($this->isGranted('ROLE_USER')) {
+            $bookmarks = $em->getRepository('AppBundle:ItemBookmark')->findAllBookmarksByUser($this->getUser());
 
+            foreach($bookmarks as $bookmark){
+                $bookmarkArray[] = $bookmark->getItemPost()->getName();
+            }
+        }
 
         return $this->render('itempost/index.html.twig', array(
             'itemPosts' => $itemPosts,

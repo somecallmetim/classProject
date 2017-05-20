@@ -54,7 +54,11 @@
         <table id="js-item-post-table" class="table table-responsive">
             <thead>
             <tr>
-                <th>Bookmark Item</th>
+                {% if is_granted('ROLE_USER') %}
+                    <th>Bookmark Item</th>
+                {% else %}
+                    <th></th>
+                {% endif %}
                 <th>Item Name</th>
                 <th>Price</th>
                 <th></th>
@@ -78,7 +82,11 @@
                         <td style="text-align: center"><span class="fa fa-check-circle" style="color: green"></span></td>
                 {% else %}
                     <tr class="itemPost" data-category="{{ itemPost.category }}" data-searchable="true">
-                        <td style="text-align: center"><a class="js-bookmark" id="{{ itemPost.id }}"><span class="fa fa-bookmark"></span></a></td>
+                        {% if is_granted('ROLE_USER') %}
+                            <td style="text-align: center"><a class="js-bookmark" id="{{ itemPost.id }}"><span class="fa fa-bookmark"></span></a></td>
+                        {% else %}
+                            <td></td>
+                        {% endif %}
                 {% endif %}
 
                         <td><a id="itemName" href="{{ path('itempost_show', { 'id': itemPost.id }) }}">{{ itemPost.name }}</a></td>
