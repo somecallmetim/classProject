@@ -30,7 +30,7 @@ class ItemPost
     private $user;
 
     /**
-     * @ORM\OneToMany(targetEntity="ItemBookmark", mappedBy="itemPost", orphanRemoval=false)
+     * @ORM\OneToMany(targetEntity="ItemBookmark", mappedBy="itemPost", orphanRemoval=true)
      */
     private $bookmarks;
 
