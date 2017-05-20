@@ -21,18 +21,36 @@ class ItemPostController extends Controller
      * Lists all itemPost entities.
      *
      * @Route("/", name="itempost_index")
-     * @Method("GET")
+     * @Method({"GET", "POST"})
      */
     public function indexAction(Request $request)
     {
-        $category = $request->get("category");
         $em = $this->getDoctrine()->getManager();
+        if($request->isXmlHttpRequest()){
+            $itemPostId = $request->request->get('itemPostId');
+            $bookmarkedItem = $em->getRepository('AppBundle:ItemPost')->find($itemPostId);
+            $this->get('app.bookmark_controller')->addBookmarkAction($bookmarkedItem);
+        }else {
+            $category = $request->get("category");
+        }
+
+
 
         $itemPosts = $em->getRepository('AppBundle:ItemPost')->findAllAndSortByDate();
 
+        $bookmarks = $em->getRepository('AppBundle:ItemBookmark')->findAllBookmarksByUser($this->getUser());
+
+        $bookmarkArray = [];
+
+        foreach($bookmarks as $bookmark){
+            $bookmarkArray[] = $bookmark->getItemPost()->getName();
+        }
+
+
         return $this->render('itempost/index.html.twig', array(
             'itemPosts' => $itemPosts,
-            'category'=>$category
+            'category'=>$category,
+            'bookmarks' => $bookmarkArray
         ));
     }
 

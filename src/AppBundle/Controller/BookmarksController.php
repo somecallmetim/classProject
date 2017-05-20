@@ -11,8 +11,11 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\ItemBookmark;
 use AppBundle\Entity\ItemPost;
+use Doctrine\ORM\EntityManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class BookmarksController extends Controller
 {
@@ -20,19 +23,26 @@ class BookmarksController extends Controller
      * @Route("/{id}/bookmarkItem", name="addBookmark")
      */
     public function addBookmarkAction(ItemPost $itemPost){
-        $em = $this->getDoctrine()->getManager();
 
-        $bookmark = new ItemBookmark();
-
-        $bookmark->setUser($this->getUser());
-        $bookmark->setItemPost($itemPost);
-
-        $em->persist($bookmark);
-        $em->flush();
+        $this->addBookmark($itemPost);
 
         $this->addFlash('success', "Congrats! You just bookmarked ".$itemPost->getName());
 
         return $this->redirectToRoute('itempost_index');
+    }
+
+    /**
+     * @Route("/bookmarkItem", name="addBookmarkAjax")
+     */
+    public function addBookmarkAjaxAction(Request $request){
+        $em = $this->getDoctrine()->getManager();
+
+        $itemPostId = $request->request->get('itemPostId');
+        $itemPost = $em->getRepository('AppBundle:ItemPost')->find($itemPostId);
+
+        $this->addBookmark($itemPost);
+
+        return new Response();
     }
 
     /**
@@ -45,5 +55,18 @@ class BookmarksController extends Controller
         $em->flush();
 
         return $this->redirectToRoute('myBookmarks');
+    }
+
+    private function addBookmark(ItemPost $itemPost){
+
+        $em = $this->getDoctrine()->getManager();
+
+        $bookmark = new ItemBookmark();
+
+        $bookmark->setUser($this->getUser());
+        $bookmark->setItemPost($itemPost);
+
+        $em->persist($bookmark);
+        $em->flush();
     }
 }
