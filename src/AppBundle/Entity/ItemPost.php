@@ -30,6 +30,11 @@ class ItemPost
     private $user;
 
     /**
+     * @ORM\OneToMany(targetEntity="ItemBookmark", mappedBy="itemPost", orphanRemoval=true)
+     */
+    private $bookmarks;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255)
@@ -87,6 +92,15 @@ class ItemPost
     {
         $this->photos = new ArrayCollection();
         $this->photoList = new ArrayCollection();
+        $this->bookmarks = new ArrayCollection();
+    }
+
+    /**
+     * @return ArrayCollection|ItemBookmark[]
+     */
+    public function getBookmarks()
+    {
+        return $this->bookmarks;
     }
 
     /**

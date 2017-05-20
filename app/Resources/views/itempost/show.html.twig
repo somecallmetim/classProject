@@ -44,10 +44,15 @@
             <a class="btn btn-primary btn-float-right" href="{{ path('itempost_edit', { 'id': itemPost.id }) }}">Edit</a>
         {% elseif is_granted('ROLE_SUPER_ADMIN')  or is_granted('ROLE_ADMIN') %}
             <a class="btn btn-danger btn-float-right" href="{{ path('itempost_delete', { 'id': itemPost.id}) }}">Delete</a>
+            <a class="btn btn-success btn-float-right" href="{{ path('fos_message_thread_contact_seller', { 'id': itemPost.id }) }}">Contact Seller</a>
+            <a class="btn btn-primary btn-float-right" href="{{ path( 'addBookmark', {'id': itemPost.id }) }}">Bookmark Item</a>
         {% else %}
-            <a class="btn btn-primary btn-float-right" href="{{ path('fos_message_thread_contact_seller', { 'id': itemPost.id }) }}">Contact Seller</a>
+            <a class="btn btn-success btn-float-right" href="{{ path('fos_message_thread_contact_seller', { 'id': itemPost.id }) }}">Contact Seller</a>
+            {% if is_granted('ROLE_USER') %}
+                <a class="btn btn-primary btn-float-right" href="{{ path( 'addBookmark', {'id': itemPost.id }) }}">Bookmark Item</a>
+            {% endif %}
         {% endif %}
-        <a class="btn btn-success btn-float-right-margin" href="{{ path('itempost_index') }}">Done</a>
+        <a class="btn btn-primary" href="{{ path('itempost_index') }}">Done</a>
 
 
     </div>

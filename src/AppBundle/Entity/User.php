@@ -9,6 +9,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use FOS\MessageBundle\Model\ParticipantInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -66,6 +67,15 @@ class User implements UserInterface, ParticipantInterface
      */
     private $itemposts;
 
+    /**
+     * @ORM\OneToMany(targetEntity="ItemBookmark", mappedBy="user", orphanRemoval=true)
+     */
+    private $bookmarks;
+
+    public function __construct()
+    {
+        $this->bookmarks = new ArrayCollection();
+    }
 
     public function getId()
     {
@@ -169,6 +179,30 @@ class User implements UserInterface, ParticipantInterface
     {
         $this->plainPassword = $plainPassword;
         $this->password = null;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getItemposts()
+    {
+        return $this->itemposts;
+    }
+
+    /**
+     * @param mixed $itemposts
+     */
+    public function setItemposts($itemposts)
+    {
+        $this->itemposts = $itemposts;
+    }
+
+    /**
+     * @return ArrayCollection|ItemBookmark[]
+     */
+    public function getBookmarks()
+    {
+        return $this->bookmarks;
     }
 
     function __toString()

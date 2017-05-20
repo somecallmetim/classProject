@@ -54,13 +54,18 @@
         <table id="js-item-post-table" class="table table-responsive">
             <thead>
             <tr>
-                <th></th>
+                {% if is_granted('ROLE_USER') %}
+                    <th>Bookmark Item</th>
+                {% else %}
+                    <th></th>
+                {% endif %}
                 <th>Item Name</th>
                 <th>Price</th>
                 <th></th>
                 <th>Date Posted</th>
                 <th>Category</th>
                 <th style="display: none">Description</th>
+                <th></th>
 
             </tr>
             </thead>
@@ -69,21 +74,35 @@
 
             <tbody>
             {% for itemPost in itemPosts %}
-                <tr class="itemPost" data-category="{{ itemPost.category }}" data-searchable="true">
-                {% if is_granted('ROLE_SUPER_ADMIN')  or is_granted('ROLE_ADMIN') %}
-                    <td><a href="{{ path('itempost_delete', {'id': itemPost.id}) }}"><span class="fa fa-close" style="color: red"></span></a></td>
+                {% if itemPost.user == app.user %}
+                    <tr class="itemPost" data-category="{{ itemPost.category }}" data-searchable="true" style="background: rgba(21, 20, 91, 0.1)">
+                        <td style="text-align: center"><a href="{{ path('itempost_delete', {'id': itemPost.id}) }}"><span class="fa fa-close" style="color: red"></span></a></td>
+                {% elseif itemPost.name in bookmarks %}
+                    <tr class="itemPost" data-category="{{ itemPost.category }}" data-searchable="true" style="background: rgba(213, 166, 13, 0.1)">
+                        <td style="text-align: center"><span class="fa fa-check-circle" style="color: green"></span></td>
                 {% else %}
-                    <td></td>
+                    <tr class="itemPost" data-category="{{ itemPost.category }}" data-searchable="true">
+                        {% if is_granted('ROLE_USER') %}
+                            <td style="text-align: center"><a class="js-bookmark" id="{{ itemPost.id }}"><span class="fa fa-bookmark"></span></a></td>
+                        {% else %}
+                            <td></td>
+                        {% endif %}
                 {% endif %}
-                    <td><a id="itemName" href="{{ path('itempost_show', { 'id': itemPost.id }) }}">{{ itemPost.name }}</a></td>
-                    <td>${{ itemPost.price|number_format(2) }}</td>
-                    <td>
-                        <a class ="btn btn-primary" href = "{{ path('fos_message_thread_contact_seller', {'id': itemPost.id}) }}">Contact Seller</a>
-                    </td>
-                    <td>{{ itemPost.postDate|date("m/d/Y") }}</td>
-                    <td>{{ itemPost.category }}</td>
-                    <td id="itemDescription" style="display: none">{{ itemPost.description }}</td>
-                </tr>
+
+                        <td><a id="itemName" href="{{ path('itempost_show', { 'id': itemPost.id }) }}">{{ itemPost.name }}</a></td>
+                        <td>${{ itemPost.price|number_format(2) }}</td>
+                        <td>
+                            <a class ="btn btn-primary" href = "{{ path('fos_message_thread_contact_seller', {'id': itemPost.id}) }}">Contact Seller</a>
+                        </td>
+                        <td>{{ itemPost.postDate|date("m/d/Y") }}</td>
+                        <td>{{ itemPost.category }}</td>
+                        <td id="itemDescription" style="display: none">{{ itemPost.description }}</td>
+                        {% if is_granted('ROLE_SUPER_ADMIN')  or is_granted('ROLE_ADMIN') %}
+                            <td><a href="{{ path('itempost_delete', {'id': itemPost.id}) }}"><span class="fa fa-close" style="color: red"></span></a></td>
+                        {% else %}
+                            <td></td>
+                        {% endif %}
+                    </tr>
             {% endfor %}
             </tbody>
         </table>
@@ -122,6 +141,23 @@
                     });
                 }
             });
+
+            $('.js-bookmark').click(function (e) {
+
+                $(this).children().removeClass('fa-bookmark').addClass('fa-spinner fa-spin');
+                var postId = $(this).attr('id');
+
+                $.post('{{path('addBookmarkAjax')}}',
+                    {itemPostId: postId},
+                    function(response){
+                        if(response.code == 100 && response.success){
+                            $("#" + postId).children().removeClass('fa-spinner fa-spin').addClass('fa-check-circle').css("color", "green");
+                            $("#" + postId).closest('tr').css('background', 'rgba(213, 166, 13, 0.1)');
+                        }
+
+                    }, "json");
+            });
+
 
             {% if category %}
                 $("#{{ category }}").click();
