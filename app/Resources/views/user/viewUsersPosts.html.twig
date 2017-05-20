@@ -6,7 +6,7 @@
         <table id="js-item-post-table" class="table table-responsive">
             <thead>
             <tr>
-                <th>Bookmark Item</th>
+                <th>Delete Post</th>
                 <th>Item Name</th>
                 <th>Price</th>
                 <th></th>
@@ -23,7 +23,7 @@
             <tbody>
             {% for itemPost in itemPosts %}
                 <tr class="itemPost" data-category="{{ itemPost.category }}" data-searchable="true">
-                    <td><a href="{{ path('itempost_delete', {'id': itemPost.id}) }}"><span class="fa fa-close" style="color: red"></span></a></td>
+                    <td style="text-align: center"><a href="{{ path('itempost_delete', {'id': itemPost.id}) }}"><span class="fa fa-close" style="color: red"></span></a></td>
                     <td><a id="itemName" href="{{ path('itempost_show', { 'id': itemPost.id }) }}">{{ itemPost.name }}</a></td>
                     <td>${{ itemPost.price|number_format(2) }}</td>
                     <td>
