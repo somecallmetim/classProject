@@ -42,7 +42,9 @@ class BookmarksController extends Controller
 
         $this->addBookmark($itemPost);
 
-        return new Response();
+        $response = array("code" => 100, "success" => true);
+
+        return new Response(json_encode($response));
     }
 
     /**

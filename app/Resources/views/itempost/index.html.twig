@@ -74,8 +74,7 @@
                     {% if itemPost.name in bookmarks %}
                         <td style="text-align: center"><span class="fa fa-check-circle" style="color: green"></span></td>
                     {% else %}
-                        <td style="text-align: center"><a href="{{ path('addBookmark', {'id': itemPost.id}) }}"><span class="fa fa-bookmark"></span></a></td>
-                        {#<td style="text-align: center"><a class="js-bookmark" id="{{ itemPost.id }}"><span class="fa fa-bookmark"></span></a></td>#}
+                        <td style="text-align: center"><a class="js-bookmark" id="{{ itemPost.id }}"><span class="fa fa-bookmark"></span></a></td>
                     {% endif %}
 
                     <td><a id="itemName" href="{{ path('itempost_show', { 'id': itemPost.id }) }}">{{ itemPost.name }}</a></td>
@@ -132,12 +131,18 @@
             });
 
             $('.js-bookmark').click(function (e) {
-                alert('got here');
+
+                $(this).children().removeClass('fa-bookmark').addClass('fa-spinner fa-spin');
                 var postId = $(this).attr('id');
-                alert(postId);
-                $.post({{ path('addBookmarkAjax') }},
-                    {itemPostId: postId}
-                );
+
+                $.post('{{path('addBookmarkAjax')}}',
+                    {itemPostId: postId},
+                    function(response){
+                        if(response.code == 100 && response.success){
+                            $("#" + postId).children().removeClass('fa-spinner fa-spin').addClass('fa-check-circle').css("color", "green");
+                        }
+
+                    }, "json");
             });
 
 

@@ -26,15 +26,8 @@ class ItemPostController extends Controller
     public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        if($request->isXmlHttpRequest()){
-            $itemPostId = $request->request->get('itemPostId');
-            $bookmarkedItem = $em->getRepository('AppBundle:ItemPost')->find($itemPostId);
-            $this->get('app.bookmark_controller')->addBookmarkAction($bookmarkedItem);
-        }else {
-            $category = $request->get("category");
-        }
 
-
+        $category = $request->get("category");
 
         $itemPosts = $em->getRepository('AppBundle:ItemPost')->findAllAndSortByDate();
 
