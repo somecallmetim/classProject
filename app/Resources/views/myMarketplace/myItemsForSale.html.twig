@@ -1,4 +1,40 @@
 {% extends 'base.html.twig' %}
+{% block navbar %}
+    {{ parent() }}
+    <nav class="navbar navbar-default navbar-sub">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-collapseable-navbar" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="main-collapseable-navbar">
+                <ul class="nav navbar-nav">
+                    <li class="active">
+                        <a id="my-items-for-sale" class="js-toggle-active" href="{{ path('myMarketplace') }}">
+                            My Items for Sale
+                            <span class="sr-only">(current)</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a id="my-bookmarked-items" class="js-toggle-active" href="{{ path('myBookmarks') }}">
+                            My Bookmarked Items
+                            <span class="sr-only">(current)</span>
+                        </a>
+                    </li>
+                </ul>
+
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </nav>
+{% endblock %}
 
 {% block body %}
 
@@ -7,8 +43,9 @@
             <thead>
             <tr>
                 <th></th>
-                <th>Name</th>
+                <th>Item Name</th>
                 <th>Price</th>
+                <th>Date Posted</th>
                 <th>Category</th>
 
             </tr>
@@ -19,6 +56,7 @@
                     <td><a href="{{ path('itempost_delete', {'id': itemPost.id}) }}"><span class="fa fa-close" style="color: red"></span></a></td>
                     <td><a href="{{ path('itempost_show', { 'id': itemPost.id }) }}">{{ itemPost.name }}</a></td>
                     <td>${{ itemPost.price|number_format(2) }}</td>
+                    <td>{{ itemPost.postDate|date("m/d/Y") }}</td>
                     <td>{{ itemPost.category }}</td>
                 </tr>
             {% endfor %}
@@ -35,6 +73,10 @@
     <script>
         $(document).ready(function() {
             var linkId = "#my-market-place-link";
+            $(linkId).parent().addClass('active');
+            $(linkId).parent().siblings().removeClass('active');
+
+            var linkId = "my-items-for-sale";
             $(linkId).parent().addClass('active');
             $(linkId).parent().siblings().removeClass('active');
         } );

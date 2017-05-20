@@ -1,5 +1,4 @@
 {% extends 'base.html.twig' %}
-
 {% block navbar %}
     {{ parent() }}
     <nav class="navbar navbar-default navbar-sub">
@@ -19,26 +18,14 @@
             <div class="collapse navbar-collapse" id="main-collapseable-navbar">
                 <ul class="nav navbar-nav">
                     <li class="active">
-                        <a id="inbox-link" class="js-toggle-active" href="{{ path('fos_message_inbox') }}">
-                            Inbox
+                        <a id="my-items-for-sale" class="js-toggle-active" href="{{ path('myMarketplace') }}">
+                            My Items for Sale
                             <span class="sr-only">(current)</span>
                         </a>
                     </li>
                     <li>
-                        <a id="sent-items-link" class="js-toggle-active" href="{{ path('fos_message_sent') }}">
-                            Sent
-                            <span class="sr-only">(current)</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a id="deleted-items-link" class="js-toggle-active" href="{{ path('fos_message_deleted') }}">
-                            Deleted
-                            <span class="sr-only">(current)</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a id="compose-link" class="js-toggle-active" href="{{ path('fos_message_thread_new') }}">
-                            Compose
+                        <a id="my-bookmarked-items" class="js-toggle-active" href="#">
+                            My Bookmarked Items
                             <span class="sr-only">(current)</span>
                         </a>
                     </li>
@@ -51,13 +38,45 @@
 
 {% block body %}
 
+    <div class="container">
+        <table class="table table-responsive">
+            <thead>
+            <tr>
+                <th></th>
+                <th>Item Name</th>
+                <th>Price</th>
+                <th>Date Posted</th>
+                <th>Category</th>
+
+            </tr>
+            </thead>
+            <tbody>
+            {% for bookmark in myBookmarks %}
+                <tr>
+                    <td><a href="{{ path('removeBookmark', {'id': bookmark.id}) }}"><span class="fa fa-close" style="color: red"></span></a></td>
+                    <td><a href="{{ path('itempost_show', { 'id': bookmark.itemPost.id }) }}">{{ bookmark.itemPost.name }}</a></td>
+                    <td>${{ bookmark.itemPost.price|number_format(2) }}</td>
+                    <td>{{ bookmark.itemPost.postDate|date("m/d/Y") }}</td>
+                    <td>{{ bookmark.itemPost.category }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        <a class="btn btn-primary" href="{{ path("itempost_new") }}" role="button">Sell New Item</a>
+
+    </div>
 {% endblock %}
 
 {% block javascripts %}
     {{ parent() }}
     <script>
         $(document).ready(function() {
-            var linkId = "#mailbox-link";
+            var linkId = "#my-market-place-link";
+            $(linkId).parent().addClass('active');
+            $(linkId).parent().siblings().removeClass('active');
+
+            var linkId = "#my-bookmarked-items";
             $(linkId).parent().addClass('active');
             $(linkId).parent().siblings().removeClass('active');
         } );
