@@ -59,7 +59,7 @@
                 {% endif %}
                 <th>Item Name</th>
                 <th>Price</th>
-                <th></th>
+                <th class="shrink-to-hide"></th>
                 <th class="shrink-to-hide">Date Posted</th>
                 <th class="shrink-to-hide">Category</th>
                 <th style="display: none">Description</th>
@@ -89,7 +89,7 @@
 
                         <td><a id="itemName" href="{{ path('itempost_show', { 'id': itemPost.id }) }}">{{ itemPost.name }}</a></td>
                         <td>${{ itemPost.price|number_format(2) }}</td>
-                        <td>
+                        <td class="shrink-to-hide">
                             <a class ="btn btn-primary" href = "{{ path('fos_message_thread_contact_seller', {'id': itemPost.id}) }}">Contact Seller</a>
                         </td>
                         <td class="shrink-to-hide">{{ itemPost.postDate|date("m/d/Y") }}</td>

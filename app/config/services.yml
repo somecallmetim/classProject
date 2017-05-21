@@ -58,6 +58,3 @@ services:
           arguments: ['@doctrine']
           tags:
           - { name: validator.constraint_validator }
-
-      app.bookmark_controller:
-          class: AppBundle\Controller\BookmarksController
