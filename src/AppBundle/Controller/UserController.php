@@ -21,8 +21,7 @@ class UserController extends Controller
 
         $em = $this->getDoctrine()->getManager();
 
-
-        if($form->isValid() && $form->isSubmitted() && $this->captchaverify($request->get('g-recaptcha-response'))){
+        if($form->isValid() && $form->isSubmitted()){
             $user = $form->getData();
             //would like to find better way to handle this
             if($user->getEmail() == 'timbauer@mail.sfsu.edu'){
@@ -38,12 +37,6 @@ class UserController extends Controller
                     $this->get('app.security.login_form_authenticator'),
                     'main'
                 );
-        }
-        if($form->isSubmitted() &&  $form->isValid() && !$this->captchaverify($request->get('g-recaptcha-response'))){
-            $this->addFlash(
-                'error',
-                'Captcha Require'
-            );
         }
 
 
