@@ -22,10 +22,6 @@
     color: #FFF;
 }
 
-.navbar-sub .navbar-nav{
-    margin-left: 50px;
-}
-
 .navbar-sub .navbar-nav > li > a {padding-top:5px !important; padding-bottom:5px !important;}
 
 .navbar {
@@ -253,6 +249,15 @@ h1, h2, h3, h4, h5, h6, p {
         max-width: 900px;
     }
 
+}
+
+@media screen and (max-width: 600px) {
+    .dropdown{
+        float:left
+    }
+    .shrink-to-hide{
+        display: none;
+    }
 }
 
 .message-body {

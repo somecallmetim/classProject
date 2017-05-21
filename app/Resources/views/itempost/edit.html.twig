@@ -6,8 +6,6 @@
 
         {{ form_start(edit_form) }}
         {{ form_widget(edit_form) }}
-        <button type="submit" class="btn btn-primary" formnovalidate>Submit</button>
-        <a class="btn btn-danger" href="{{ path('itempost_delete', { 'id': itemPost.id }) }}">Delete</a>
         {{ form_end(edit_form) }}
         <hr>
         <h3>Manage Photos</h3>
@@ -27,6 +25,10 @@
                 <span class="vertical-social-box"></span>
         {% endfor %}
         </div>
+
+        <button type="submit" class="btn btn-primary btn-float-right" formnovalidate>Submit</button>
+        <a class="btn btn-danger btn-float-right" href="{{ path('itempost_delete', { 'id': itemPost.id }) }}">Delete</a>
+
         <br>
 {% endblock %}
 
