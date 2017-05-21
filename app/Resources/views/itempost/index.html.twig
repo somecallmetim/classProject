@@ -60,8 +60,8 @@
                 <th>Item Name</th>
                 <th>Price</th>
                 <th></th>
-                <th class="hide-cell">Date Posted</th>
-                <th class="hide-cell">Category</th>
+                <th class="shrink-to-hide">Date Posted</th>
+                <th class="shrink-to-hide">Category</th>
                 <th style="display: none">Description</th>
                 <th></th>
 
@@ -92,8 +92,8 @@
                         <td>
                             <a class ="btn btn-primary" href = "{{ path('fos_message_thread_contact_seller', {'id': itemPost.id}) }}">Contact Seller</a>
                         </td>
-                        <td class="hide-cell">{{ itemPost.postDate|date("m/d/Y") }}</td>
-                        <td class="hide-cell">{{ itemPost.category }}</td>
+                        <td class="shrink-to-hide">{{ itemPost.postDate|date("m/d/Y") }}</td>
+                        <td class="shrink-to-hide">{{ itemPost.category }}</td>
                         <td id="itemDescription" style="display: none">{{ itemPost.description }}</td>
                         {% if is_granted('ROLE_SUPER_ADMIN')  or is_granted('ROLE_ADMIN') %}
                             <td><a href="{{ path('itempost_delete', {'id': itemPost.id}) }}"><span class="fa fa-close" style="color: red"></span></a></td>
