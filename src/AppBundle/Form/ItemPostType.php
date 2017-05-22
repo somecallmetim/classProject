@@ -4,7 +4,7 @@ namespace AppBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Length;
@@ -34,8 +34,10 @@ class ItemPostType extends AbstractType
                     'Misc' => 'Misc'
                 ]
             ])
-            ->add('photoList', FileType::class, array('multiple' => true,'label' => 'Photo'))
-
+            ->add('photos', CollectionType::class, [
+                'entry_type' => PhotoType::class,
+                'allow_add' => true
+            ])
         ;
     }
     

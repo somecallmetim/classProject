@@ -5,11 +5,21 @@
         <h1>Post new item to sell</h1>
 
         {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <button type="submit" class="btn btn-primary btn-float-right"  formnovalidate>
-            Create Item
-        </button>
-        <a class="btn btn-danger btn-float-right" href="{{ path('itempost_index') }}">Cancel</a>
+            {{ form_row(form.name) }}
+            {{ form_row(form.category) }}
+            {{ form_row(form.price) }}
+            {{ form_row(form.description) }}
+            <h3>Photos</h3>
+            <ul class="photos" data-prototype="{{ form_widget(form.photos.vars.prototype)|e('html_attr') }}">
+                {# iterate over each existing tag and render its only field: name #}
+                {% for photo in form.photos %}
+                    <li>{{ form_row(photo) }}</li>
+                {% endfor %}
+            </ul>
+            <button type="submit" class="btn btn-primary btn-float-right"  formnovalidate>
+                Create Item
+            </button>
+            <a class="btn btn-danger btn-float-right" href="{{ path('itempost_index') }}">Cancel</a>
         {{ form_end(form) }}
     </div>
 {% endblock %}
@@ -17,10 +27,54 @@
 {% block javascripts %}
     {{ parent() }}
     <script>
+
+        var $collectionHolder;
+
+        // setup an "add a photo" link
+        var $addPhotoLink = $('<a href="#" class="add_photo_link">Add a photo</a>');
+        var $newLinkLi = $('<li></li>').append($addPhotoLink);
+
+        function addPhotoForm($collectionHolder, $newLinkLi) {
+            // Get the data-prototype explained earlier
+            var prototype = $collectionHolder.data('prototype');
+
+            // get the new index
+            var index = $collectionHolder.data('index');
+
+            // Replace '__name__' in the prototype's HTML to
+            // instead be a number based on how many items we have
+            var newForm = prototype.replace(/__name__/g, index);
+
+            // increase the index with one for the next item
+            $collectionHolder.data('index', index + 1);
+
+            // Display the form in the page in an li, before the "Add a tag" link li
+            var $newFormLi = $('<li></li>').append(newForm);
+            $newLinkLi.before($newFormLi);
+        }
+
         $(document).ready(function() {
             var linkId = "#post-item";
             $(linkId).parent().addClass('active');
             $(linkId).parent().siblings().removeClass('active');
+
+            // Get the ul that holds the collection of photos
+            $collectionHolder = $('ul.photos');
+
+            // add the "add a photo" anchor and li to the tags ul
+            $collectionHolder.append($newLinkLi);
+
+            // count the current form inputs we have (e.g. 2), use that as the new
+            // index when inserting a new item (e.g. 2)
+            $collectionHolder.data('index', $collectionHolder.find(':input').length);
+
+            $addPhotoLink.on('click', function(e) {
+                // prevent the link from creating a "#" on the URL
+                e.preventDefault();
+
+                // add a new tag form (see next code block)
+                addPhotoForm($collectionHolder, $newLinkLi);
+            });
         } );
     </script>
 {% endblock %}
